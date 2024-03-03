@@ -1,0 +1,44 @@
+	*{
+        box-sizing: border-box;
+    }
+    .form-box{
+        background-color: #fff;
+        border: 1px solid #338573;
+        box-shadow: 0 0 22px 0 rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        margin: 30px auto;
+        max-width: 600px;
+    }
+    .field-group{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom:10px ;
+    }
+    .field-group input,
+    .field-group textarea{
+        width: calc(100% - 30px);
+    }
+    input{
+        height: 38px;
+        padding: 6px;
+    }
+    button[type=login]{
+        width: calc(100% - 30px);
+        height: 40px;
+        color:  white;
+        border: none;
+        background: #338573;
+        padding: 8px;
+        margin: 10px 10px 10px 0px;
+        border-radius: 10px;
+    }
+    h3{
+        color: #338573;
+        font-size: 25px;
+        margin: auto;
+    }
+    h4{
+        color: #338573;
+    }
