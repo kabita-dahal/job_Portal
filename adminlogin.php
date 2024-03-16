@@ -1,20 +1,36 @@
 <?php
-if (isset($_COOKIE['email'])) {
+if (isset($_COOKIE['username'])) {
     session_start();
-    $_SESSION['email'] = $_COOKIE['email'];
+    $_SESSION['username'] = $_COOKIE['username'];
 }
-$email = $password = '';
+$username = $password = '';
 if (isset($_POST['btnLogin'])) {
     $err =[];
-    if (isset($_POST['email']) && !empty($_POST['email']) && trim($_POST['email'])){
-        $email = trim($_POST['email']);
+    if (isset($_POST['username']) && !empty($_POST['username']) && trim($_POST['username'])){
+        $username = trim($_POST['username']);
     } else {
-        $err['email'] = 'Enter email';
+        $err['username'] = 'Enter username';
     }
     if(isset($_POST['password']) && !empty($_POST['password'])){
         $password = $_POST['password'];
     } else {
         $err['password'] = 'Enter password';
+    }
+
+    //if error not occured
+    if(count($err) == 0){
+        //check valid username and password
+        if($username == 'jobportal' && $password == 'jobportal123'){
+            session_start();
+            $_SESSION['username'] = $username;
+            //check remember me
+            if(isset($_POST['remember'])){
+                setcookie('username',$username,time()+7*24*60*60);
+            }
+            header('location:admindashboard.php');
+        }else {
+            echo 'Login failed';
+        }
     }
 }
 ?>
@@ -23,12 +39,32 @@ if (isset($_POST['btnLogin'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>admin login</title>
     <link rel="stylesheet" href="login.css"> 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <script>
+        // Toggle the visibility of the dropdown content
+        function toggleDropdown(dropdownId) {
+          var dropdown = document.getElementById(dropdownId);
+          dropdown.classList.toggle("show");
+        }
+      
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropdown-btn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+      </script> 
     <div class="header">
         <nav>
             <div class="logo">
@@ -39,11 +75,10 @@ if (isset($_POST['btnLogin'])) {
     <section class="form-box">
         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="login_form">
             <h3>LOGIN</h3>
-            <p>Already a registered member? Login here</p>
             <div class="field-group">
-                <label for="email"><b>Email:</b></label>
-                <input type="text" id="email" name="email">
-                <span><?php echo isset($err['email'])?$err['email']:''; ?></span>
+                <label for="username"><b>Username:</b></label>
+                <input type="text" id="username" name="username">
+                <span><?php echo isset($err['username'])?$err['username']:''; ?></span>
             </div>
             <div class="field-group">
                 <label for="password"><b>Password:</b></label>
@@ -53,7 +88,6 @@ if (isset($_POST['btnLogin'])) {
             <div class="btn-group">
                 <button type="login" name="btnLogin">Log In</button>
             </div>
-            <p>Don"t have any account yet? <a href="registter.html">Create a new account</a> today.</p>
         </form>
     </section>
     <footer id="footer">

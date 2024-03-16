@@ -15,7 +15,10 @@
     height: 40px;
     padding: 30px;
 }
-.logo{
+.logo a{
+    color:#338573;
+}
+h2{
     color:#338573;
 }
 button{
@@ -205,3 +208,32 @@ color: #338573}
   .show {
     display: block;
   }
+
+  /*job description*/
+  .company-name {
+    background-color: #e6fcf9;
+    padding: 20px;
+  }
+  .buttonsContainer {
+    display: flex;
+    align-items: center;
+    float: calc(100%-40px);
+  }
+
+  .description-content {
+    padding: 30px;
+}
+.section {
+    margin-bottom: 20px;
+}
+.section h2 {
+    font-size: 20px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.section-content {
+    line-height: 1.6;
+}
+.buttons {
+    display: inline;
+}
