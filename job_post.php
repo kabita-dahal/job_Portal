@@ -76,7 +76,6 @@ if(empty($errors)){
 
 <!DOCTYPE html>
 <html lang="en">
-//Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus doloremque alias dicta nihil?
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,14 +87,14 @@ if(empty($errors)){
 </head>
 
 <body>
-    <div class="header">
+    <!-- <div class="header">
         <nav>
             <div class="logo">
                 <h2>Job Portal</h2>
             </div>
         </nav>
     </div>
-    <hr>
+    <hr> -->
 
     <div class="Job_post_container">
         <form action="" method="post">
@@ -166,7 +165,7 @@ if(empty($errors)){
             </div>
         </form>
     </div>
-    <footer id="footer">
+    <!-- <footer id="footer">
         <div class="footer-content">
             <div class="logo">
                 <h2>Job Portal</h2>
@@ -188,6 +187,6 @@ if(empty($errors)){
                 <p>&copy;Copyright <strong>Job portal</strong>.All Rights Reserved</p>
             </div>
         </div>
-    </footer>
+    </footer> -->
 </body>
 </html>

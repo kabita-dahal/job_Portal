@@ -1,5 +1,5 @@
 <?php
-$fname = $lname = $email = $password = $dob = $mobno = $address = $cv = '';
+$fname = $lname = $dob = $mobno = $address = $cv = '';
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if(isset ($_POST['fname']) && !empty($_POST['fname']) && trim($_POST['fname'])){
         $fname = $_POST['fname'];
@@ -12,18 +12,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
     else{
         $err['lname'] = 'Enter Last Name';
-    }
-    if (isset ($_POST['email']) &&!empty($_POST['email']) && trim($_POST['email'])) {
-        $email = $_POST['email'];
-    }
-    else{
-        $err['email'] = 'Enter Email';
-    }
-    if (isset ($_POST['password']) &&!empty($_POST['password']) && trim($_POST['password'])) {
-        $password = $_POST['password'];
-    }
-    else{
-        $err['password'] = 'Enter Password';
     }
     if (isset ($_POST['dob']) &&!empty($_POST['dob']) && trim($_POST['dob'])) {
         $dob = $_POST['dob'];
@@ -52,15 +40,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
     $dob = $_POST['dob'];
     $mobno = $_POST['mobno'];
     $address = $_POST['address'];
     $cv = $_POST['cv'];
     try{
         require_once 'connection.php';
-        $sql = "INSERT INTO jobseeker(fname,lname,email,password,dob,mobno,address,cv) values('$fname','$lname','$email','$password','$dob',$mobno,'$address','$cv')";
+        $sql = "INSERT INTO jobseeker(fname,lname,dob,mobno,address,cv) values('$fname','$lname','$dob',$mobno,'$address','$cv')";
         $connection->query($sql);
         echo "Data inserted successfully";
     }catch(Exception $ex){
@@ -101,16 +87,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <label for="lname"><b>Last Name:</b></label>
                 <input type="text" name="lname">
                 <span><?php echo isset($err['lname'])?$err['lname']:''; ?></span>
-            </div>
-            <div class="field-group">
-                <label for="email"><b>Email:</b></label>
-                <input type="text" name="email">
-                <span><?php echo isset($err['email'])?$err['email']:''; ?></span>
-            </div>
-            <div class="field-group">
-                <label for="password"><b>Password:</b></label>
-                <input type="password" name="password">
-                <span><?php echo isset($err['password'])?$err['password']:''; ?></span>
             </div>
             <div class="field-group">
                 <label for="dob"><b>Date of Birth:</b></label>

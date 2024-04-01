@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admin dashboard</title>
+    <title>Emp dashboard</title>
     <link rel="stylesheet" href="style.css">
     <style>
         table{
@@ -22,8 +22,6 @@
         table tr:last-child {
             border-bottom: none;
         }
-
-
     h2 {
         color: #338573;
     }
@@ -90,7 +88,7 @@
 </head>
 <body>
     <?php
-    $activePage = isset($_GET['page']) ? $_GET['page'] : 'jobseeker';
+    $activePage = isset($_GET['page']) ? $_GET['page'] : 'applicant';
     ?>
     <div class="header">
         <nav>
@@ -98,31 +96,26 @@
             <h2>Job Portal</h2>
             </div>
             <div class="nav-links">
-            <ul>
-                <li><a href="?page=jobseeker" <?php echo ($activePage === 'jobseeker') ? 'class="active"' : ''; ?>>Job Seeker</a></li>
-                <li><a href="?page=employer" <?php echo ($activePage === 'employer') ? 'class="active"' : ''; ?>>Employer</a></li>
-                <li><a href="?page=job" <?php echo ($activePage === 'job') ? 'class="active"' : ''; ?>>Jobs</a></li>
-            </ul>
-            </div>
+                <ul>
+                    <li><a href="?page=applicant" <?php echo ($activePage === 'applicant') ? 'class="active"' : ''; ?>>Applicants</a></li>
+                    <li><a href="?page=job_post" <?php echo ($activePage === 'job_post') ? 'class="active"' : ''; ?>>Open Position</a></li>
+                </ul>
             </div>
         </nav>
+    </div>
         <hr>
-        
         <?php
         // Include the content based on the active page
         switch ($activePage) {
-            case 'jobseeker':
-            include 'jobseeker.php';
+            case 'applicant':
+            include 'applicant.php';
             break;
-            case 'employer':
-            include 'employer.php';
-            break;
-            case 'job':
-            include 'job.php';
+            case 'job_post':
+            include 'job_post.php';
             break;
             default:
             // Handle other cases or set a default behavior
-            include 'jobseeker.php';
+            include 'applicant.php';
             break;
         }
         ?>

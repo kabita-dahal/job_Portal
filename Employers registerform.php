@@ -1,5 +1,5 @@
 <?php
-$cname = $industry = $contact_no = $email = $location = $password = $confirm_password = '';
+$cname = $industry = $contact_no = $location = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['cname']) && !empty($_POST['cname']) && trim($_POST['cname'])) {
         $cname = $_POST['cname'];
@@ -25,35 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['contact_no'] = 'Enter contact number';
     }
 
-    if (isset($_POST['email']) && !empty($_POST['email']) && trim($_POST['email'])) {
-        $email = $_POST['email'];
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'Enter valid email';
-        }
-    } else {
-        $errors['email'] = 'Enter email';
-    }
-
     if (isset($_POST['location']) && !empty($_POST['location']) && trim($_POST['location'])) {
         $location = $_POST['location'];
     } else {
         $errors['location'] = 'Enter company location';
     }
 
-    if (isset($_POST['password']) && !empty($_POST['password'])) {
-        $password = $_POST['password'];
-    } else {
-        $errors['password'] = 'Enter password';
-    }
-
-    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
-        $confirm_password = $_POST['confirm_password'];
-        if ($confirm_password !== $password) {
-            $errors['confirm_password'] = 'Passwords do not match';
-        }
-    } else {
-        $errors['confirm_password'] = 'Confirm password';
-    }
+    
 
     if (!isset($_POST['terms'])) {
         $errors['terms'] = 'You must agree to the terms and conditions';
@@ -61,11 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $cname = $_POST['cname'];
     $industry = $_POST['industry'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
     $contact_no = $_POST['contact_no'];
     $location = $_POST['location'];
-    $confirm_password = $_POST['confirm_password'];
     try{
         require_once 'connection.php';
         $sql = "INSERT INTO employer(cname, industry, email, password, contact_no, location, confirm_password) values('$cname', '$industry', '$email', '$password', '$contact_no', '$location', '$confirm_password')";
@@ -124,22 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <span><?php echo isset($errors['contact_no']) ? $errors['contact_no'] : '' ?></span><br>
                 <input type="text" id="contact_no" name="contact_no" value="<?php echo $contact_no ?>" placeholder="Enter contact number"><br>
 
-                <label for="email">Email:</label>
-                <span>  <?php echo isset($errors['email']) ? $errors['email'] : '' ?></span><br>
-                <input type="email" id="email" name="email" value="<?php echo $email ?>" placeholder="Enter email"><br>
-
                 <label for="location">Company Location:</label>
                <span> <?php echo isset($errors['location']) ? $errors['location'] : '' ?></span><br>
                 <input type="text" id="location" name="location" value="<?php echo $location ?>" placeholder="Enter company location"><br>
 
-                <label for="password">Password:</label>
-                <span><?php echo isset($errors['password']) ? $errors['password'] : '' ?></span><br>
-                <input type="password" id="password" name="password" placeholder="Enter password"><br>
-
-                <label for="confirm_password">Confirm Password:</label>
-                <span><?php echo isset($errors['confirm_password']) ? $errors['confirm_password'] : '' ?></span>
-                <br>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password"><br>
             </div>
             <div class="term">
                 <input type="checkbox" id="terms" name="terms">

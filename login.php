@@ -53,7 +53,7 @@ if (isset($_POST['btnLogin'])) {
             <div class="btn-group">
                 <button type="login" name="btnLogin">Log In</button>
             </div>
-            <p>Don"t have any account yet? <a href="registter.html">Create a new account</a> today.</p>
+            <p>Don"t have any account yet? <a href="user.php">Create a new account</a> today.</p>
         </form>
     </section>
     <footer id="footer">

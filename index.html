@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <script>
+  <!-- <script>
     // Toggle the visibility of the dropdown content
     function toggleDropdown(dropdownId) {
       var dropdown = document.getElementById(dropdownId);
@@ -27,23 +27,33 @@
         }
       }
     }
-  </script> 
+  </script>  -->
     <div class="header">
         <nav>
             <div class="logo">
-            <h2>Job Portal</h2>
+              <a href="index.html">
+                <h2>Job Portal</h2>
+              </a>
             </div>
+            <!-- <ul>
+              <li class="dropdown">
+                  <a href="#" class="dropbtn">Jobseeker</a>
+                  <div class="dropdown-content">
+                      <a href="#">Option 1</a>
+                      <a href="#">Option 2</a>
+                  </div>
+              </li>
+              <li class="dropdown">
+                  <a href="#" class="dropbtn">Employer</a>
+                  <div class="dropdown-content">
+                      <a href="#">Option 1</a>
+                      <a href="#">Option 2</a>
+                  </div>
+              </li>
+          </ul> -->
             <div class="content">
-            <button class="dropdown-btn" onclick="toggleDropdown('myDropdown1')">For Jobseekers <span class="arrow-down">&#9660;</span></button>
-            <div id="myDropdown1" class="dropdown-content">
-              <a href="login.php">Login</a>
-              <a href="jobseekerregister.php">Register</a>
-            </div>
-            <button class="dropdown-btn" onclick="toggleDropdown('myDropdown2')">For Employers <span class="arrow-down">&#9660;</span></button>
-            <div id="myDropdown2" class="dropdown-content">
-              <a href="#">Login</a>
-              <a href="Employers registerform.php">Register</a>
-            </div>
+            <button class="dropdown-btn" onclick="window.location.href='login.php'">Login </button>
+            <button class="dropdown-btn" onclick="window.location.href='user.php'">Register </button>
             </div>
         </nav>
         <div class="banner">
@@ -51,7 +61,7 @@
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p> <br>
-            <button class="button3">Login.</button>
+            <button class="button3">Get Started</button>
             </div>
             <img src="Images/Untitled design (3).png" width=auto;>
           </div>

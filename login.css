@@ -21,10 +21,11 @@
         
     }
     .field-group input,
-    .field-group textarea{
+    .field-group textarea, 
+    .field-group select{
         width: calc(100% - 30px);
     }
-    input{
+    input, select{
         height: 38px;
         padding: 6px;
     }
