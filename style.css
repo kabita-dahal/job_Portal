@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
-    font-family: popins;
     scroll-behavior: smooth;
 }
 .header{
@@ -12,21 +11,80 @@
     display: flex;
     position: relative;
     justify-content: space-between;
-    height: 40px;
+    height: 20px;
     padding: 30px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #ffffff; 
+    border-bottom: 1px solid #338573;
+
 }
-.logo a{
+.logo{
+    margin-left: 30px;
     color:#338573;
+    cursor: pointer;
 }
-h2{
-    color:#338573;
+.search-bar {
+    flex: 1; 
+    display: flex;
+    align-items: center; 
+    justify-content: flex-end; 
+    margin-right: 20px;
 }
-button{
+
+.search-bar form {
+    display: flex;
+    align-items: center;
+}
+.search-bar input[type="text"] {
+    padding: 10px;
+    border: 1px solid#d1d1d1;
+    border-radius: 25px;
+    margin-right: 5px;
+    width: 300px;
+    outline: none;
+}
+.search-bar button[type="submit"] {
+    background: none;
+    color: #020202;
+    cursor: pointer;
+    padding: 8px;
+}
+.profile {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1.5px solid #338573;;
+}
+.notification-icon{
+    font-size: 18px;
+    color: #338573;
+    cursor: pointer;
+    width: 60px;
+}
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #338573;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s; 
+
+  }
+  button:active {
+    transform: scale(1.1); 
+  }
+/* button{
     font-size: 15px;
     background-color: #338573;
     color: white;
-    padding:10px;
-    padding-right: 15px;
+    padding:8px;
     margin-right: 15px;
     border-radius: 3px;
     border: 2px solid #338573;
@@ -34,15 +92,15 @@ button{
 button:hover{
     background-color: #f9faf9;
     color: #338573;
-}
+} */
 .banner{
     position: relative;
     width:100%;
     height: 500px;
     display: flex;
-    justify-content: space-between;
-    background-color: #e6fcf9;
-    z-index: 1;
+    justify-content: space-around;
+    background-image: linear-gradient(45deg, #c2f0e6, #ffffff); 
+    margin-bottom: 50px;
 }
 .banner .text_1{
     margin-top:100px ;
@@ -57,7 +115,7 @@ h1 span{
 h3{
     font-size: 25px;
     text-align: center;
-    margin: 10px;
+    margin-top: 20px;
 }    
 .banner__1 {
 padding: 18px;
@@ -96,18 +154,57 @@ background-color: #f3f3f3;
 .banner__1__container img:hover{
     transform: translateY(-10px);
 }
-.job_list{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, auto));
-    align-items: center;    
-    gap: 0.94rem;
-    margin-top: 30px;
-    margin-left: 70px;
+.job_box{
+    display: flex;
+    justify-content:space-around;
+    margin-top: 100px;
+}
+.left_image{
+    width: 400px;
+    height: 375px;
+    box-shadow: rgba(37, 37, 37, 0.2) 0px 2px 8px 0px;
+    border-radius: 1rem;
+    top:200px;
+    position: sticky;
+    margin-top: 18px;
+    z-index: 1;
+    padding: 10px;
+    background-image: linear-gradient(to bottom right,#c7f8ed , #ffffff); 
+}
+.left_image img{
+    margin-left: 30px;
+    
+}
+/* .heading3{
+    width: 700px; 
+    position: sticky;
+    top: 0;
+    float: right;
+    z-index: 1; 
     margin-right: 70px;
+    background-color: #ffffff;
+    margin-top: 50px;
+} */
+.heading3{
+    width: 700px; /* Adjust as needed */
+    position: relative;
+    float: right;
+    margin-right: 70px;
+    background-color: #ffffff;
+    margin-top: 50px;
+}
+.job_list{
+    width: 600px;
+    display: grid;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 10px
 }
 .job_details{
+    width: 550px;
+    height: 150px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     background: #f3f3f3;
     position: relative;
     overflow: hidden;
@@ -152,8 +249,7 @@ margin-bottom: 15px;
     padding-top: 5%;
 }
 .footer-content .logo span{
-color: #338573
-}
+color: #338573}
 .socail-links i{
     margin-top: 20px;
     padding: 10px;
@@ -176,66 +272,10 @@ color: #338573
     font-weight: 550;
     color: white;
 }
-
-
-.arrow-down {
-    position: relative;
-    font-size: 0.5em;
-    top: 50%;
-    transform: translateY(-50%);
-    padding-left: 5px;
-    }
-    /* Style the dropdown content (hidden by default) */
-    .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 118px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  /* Style the dropdown items (links inside the dropdown) */
-  .dropdown-content a {
-    padding: 12px;
-    display: block;
-    text-decoration: none;
-    color: #333;
-  }
-  /* Change color on hover */
-  .dropdown-content a:hover {
-    background-color: #338573;
-  }
-
-  /* Show the dropdown content when the button is clicked */
-  .show {
-    display: block;
-  }
-
-  /*job description*/
-  .company-name {
-    background-color: #e6fcf9;
-    padding: 20px;
-  }
-  .buttonsContainer {
+.jobdetails_container{
     display: flex;
-    align-items: center;
-    float: calc(100%-40px);
-  }
-
-  .description-content {
-    padding: 30px;
+    justify-content: space-around;
 }
-.section {
-    margin-bottom: 20px;
-}
-.section h2 {
-    font-size: 20px;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-}
-.section-content {
-    line-height: 1.6;
-}
-.buttons {
-    display: inline;
+.jobdetails_child2{
+    width: 500px;
 }

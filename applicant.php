@@ -19,5 +19,6 @@
         <th></th>
         <th></th>
     </tr>
+</table>
 </body>
 </html>

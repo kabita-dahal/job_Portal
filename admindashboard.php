@@ -106,7 +106,7 @@
             </div>
             </div>
         </nav>
-        <hr>
+        
         
         <?php
         // Include the content based on the active page

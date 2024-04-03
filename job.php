@@ -1,8 +1,7 @@
 <?php
 error_reporting(0);
 try {
-    require_once 'connection.php';
-    //$connection = new mysqli('localhost', 'root', '', 'Online_jobportal');
+    $connection = new mysqli('localhost', 'root', '', 'jobportal');
     $sql = "SELECT * FROM jobs ORDER BY jobTitle ASC"; 
     $result = $connection->query($sql);
     $jobs = [];
@@ -26,13 +25,18 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs</title>
+    <!-- <link rel="stylesheet" href="Job-list.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
+    
 </head>
 
 <body>
+   
    <h3> Jobs</h3>
 
    <div class="list_jobs">
-    <table>
+    <table border="1">
         <tr>
             <th>job-id</th>
             <th>Job Title</th>
@@ -46,34 +50,18 @@ try {
                 <td><?php echo $key + 1 ?></td>
                 <td><?php echo $job['jobTitle'] ?></td>
                 <td><?php echo $job['jobType'] ?></td>
-                <td><?php echo 'sample.Co' ?></td>
+                <td><?php echo $job['postedby'] ?></td>
                 <td><?php echo $job['applicationDeadline'] ?></td>
                 <td>
-                    <a onclick="return confirm('Are you sure to update?')" href="update_job.php?id=<?php echo $job['id'] ?>">Update</a>
-                    <a onclick="return confirm('Are you sure to delete?')" href="delete_job.php?id=<?php echo $job['id'] ?>">Delete</a>
+                    <a onclick="return confirm('Are you sure to update?')" href="update.php?id=<?php echo $job['id'] ?>">Update</a>
+                    <a onclick="return confirm('Are you sure to delete?')" href="delete.php?id=<?php echo $job['id'] ?>">Delete</a>
                 </td>
             </tr>
         <?php } ?>
     </table>
    </div>
-    <!-- <script>
-
-var btnContainer = document.getElementById("menu_id");
-
-var btns = btnContainer.getElementsByClassName("menu");
-
-for (var i = 0; i < btns.length; i++) {
-
-btns[i].addEventListener('click', function () {
-
-var current = document.getElementsByClassName("active");
-
-current[0].className = current[0].className.replace("active");
- this.className += active";
-
-})
-}
-</script> -->
+   
+</script> 
 </body>
 </html>
 

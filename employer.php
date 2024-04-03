@@ -2,7 +2,7 @@
 error_reporting(0);
 try{
     require_once 'connection.php';
-    $sql = "select c_id,cname,email from employer ";
+    $sql = "select c_id,cname from employer ";
     $result = $connection->query($sql);
     $employers = [];
     if ($result->num_rows > 0) { // mysqli_num_rows()
@@ -40,7 +40,7 @@ try{
             <tr>
                 <td><?php echo $employer['c_id'] ?></td>
                 <td><?php echo $employer['cname'] ?></td>
-                <td><?php echo $employer['email'] ?></td>
+                <td><?php echo 'company@gmail.com' ?></td>
                 <td>1</td>
                 <td>Sandeep</td>
                 <td>

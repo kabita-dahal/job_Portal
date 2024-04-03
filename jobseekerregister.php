@@ -75,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     </div>
     <?php require_once 'menu.php'; ?>
     <section class="form-box">
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" name="login_form">
+        <form action="login.php" method="post" name="login_form">
             <h3>Create your free job seeker account</h3>
             <p>Register with basic information, complete your profile and start applying for jobs for free.</p>
             <div class="field-group">
@@ -109,7 +109,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <span><?php echo isset($err['cv'])?$err['cv']:''; ?></span>
             </div>
             <div class="btn-group">
-                <button type="login" name="register">Register</button>
+            <button type="login" name="register">Register</button>
+               
             </div>
         </form>
     </section>

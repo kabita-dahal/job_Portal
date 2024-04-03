@@ -1,5 +1,5 @@
 <?php
-$jobTitle = $jobCategory = $jobType = $jobLocation = $salaryRange = $experienceLevel = $applicationDeadline = $qualification = $jobDescription = '';
+$jobTitle = $postedby = $jobCategory = $jobType = $jobLocation = $salaryRange = $experienceLevel = $applicationDeadline = $qualification = $jobDescription = $jobrequirement = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['jobTitle']) && !empty($_POST['jobTitle']) && trim($_POST['jobTitle'])) {
         $jobTitle = $_POST['jobTitle'];
@@ -8,6 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         $errors['jobTitle'] = 'Enter job title';
+    }
+    if (isset($_POST['postedby']) && !empty($_POST['postedby']) && trim($_POST['postedby'])) {
+        $postedby = $_POST['postedby'];
+        if (!preg_match('/^[a-zA-Z\s]{3,50}$/', $postedby)) {
+            $errors['postedby'] = 'Enter a valid Name';
+        }
+    } else {
+        $errors['postedby'] = 'Enter Your Name';
     }
 
     if (isset($_POST['jobCategory']) && !empty($_POST['jobCategory'])) {
@@ -57,23 +65,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $errors['jobDescription'] = 'Enter job description';
     }
-}
-error_reporting(0);
-if(empty($errors)){
-    try {
-    $connection = new mysqli('localhost', 'root', '', 'jobportal'); 
-        $sql = "INSERT INTO jobs (jobTitle, jobCategory, jobType, jobLocation, salaryRange, experienceLevel, applicationDeadline, qualification, jobDescription)
-                VALUES ('$jobTitle', '$jobCategory', '$jobType', '$jobLocation', '$salaryRange', '$experienceLevel', '$applicationDeadline', '$qualification', '$jobDescription')";
 
-        $connection->query($sql);
-        echo "Job posted successfully";
-    } catch (Exception $ex) {
-        die('Error: ' . $ex->getMessage());
+    if (isset($_POST['jobrequirement']) && !empty($_POST['jobrequirement']) && trim($_POST['jobrequirement'])) {
+        $jobrequirement = explode("\n", $_POST['jobrequirement']);
+        // Convert the array back to a string
+       //$jobrequirement = implode(", ", $jobrequirement);
+    } else {
+        $errors['jobrequirement'] = 'Enter job Requirement';
     }
 }
+    
+    // ... rest of your code ...
+    
+    if(empty($errors)){
+        try {
+            $connection = new mysqli('localhost', 'root', '', 'jobportal'); 
+            // Use prepared statements to prevent SQL injection
+            $stmt = $connection->prepare("INSERT INTO jobs (jobTitle, postedby, jobCategory, jobType, jobLocation, salaryRange, experienceLevel, applicationDeadline, qualification, jobDescription, jobrequirement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssssssss", $jobTitle, $postedby, $jobCategory, $jobType, $jobLocation, $salaryRange, $experienceLevel, $applicationDeadline, $qualification, $jobDescription, $jobrequirement);
+            
+            if ($stmt->execute()) {
+                echo "Job posted successfully";
+            } else {
+                echo "Error: " . $stmt->error;
+            }
+        } catch (Exception $ex) {
+            die('Error: ' . $ex->getMessage());
+        }
+    }
+    
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,23 +109,23 @@ if(empty($errors)){
 </head>
 
 <body>
-    <!-- <div class="header">
-        <nav>
-            <div class="logo">
-                <h2>Job Portal</h2>
-            </div>
-        </nav>
-    </div>
-    <hr> -->
+   
 
     <div class="Job_post_container">
         <form action="" method="post">
             <h3>Post a job</h3>
 
+            <div class="box_1">
+            <div class="jobtitle">
             <label for="jobTitle">Job Title:</label>
             <span><?php echo isset($errors['jobTitle']) ? $errors['jobTitle'] : '' ?></span><br>
             <input type="text" id="jobTitle" name="jobTitle" value="<?php echo $jobTitle ?>" placeholder="Enter Job Title"><br>
+            </div>
 
+            <div class="postedby"><label for="postedby">Posted By:</label>
+            <span><?php echo isset($errors['postedby']) ? $errors['postedby'] : '' ?></span><br>
+            <input type="text" id="postedby" name="postedby" value="<?php echo $postedby ?>" placeholder="Enter Your Name"><br></div>
+            </div>
             <div class="box_1">
                 <div class="cate_gory">
                     <label for="jobCategory">Job Category:</label>
@@ -159,34 +181,18 @@ if(empty($errors)){
             <label for="jobDescription">Job Description:</label>
             <span><?php echo isset($errors['jobDescription']) ? $errors['jobDescription'] : '' ?></span><br>
             <textarea id="jobDescription" name="jobDescription" placeholder="Enter Job Description" rows="4" cols="50"><?php echo $jobDescription ?></textarea><br>
+             
 
+            <label for="jobrequirement">Requirements:</label>
+            <span><?php echo isset($errors['jobrequirement']) ? $errors['jobrequirement'] : '' ?></span><br>
+            <textarea id="jobrequirement" name="jobrequirement" placeholder="Enter Job Requirement" rows="4" cols="50"><?php isset($jobrequirement) ? $jobrequirement : ''; ?></textarea>?><br>
             <div class="button_2">
-                <button type="submit">Post Job</button>
+            <button class="button" onclick="this.innerHTML = 'Posted!!';">
+  Post
             </div>
+             
         </form>
     </div>
-    <!-- <footer id="footer">
-        <div class="footer-content">
-            <div class="logo">
-                <h2>Job Portal</h2>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
-                <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, molestias!
-            </p>
-            <div class="socail-links">
-                <i class="fa-brands fa-twitter"></i>
-                <i class="fa-brands fa-facebook-f"></i>
-                <i class="fa-brands fa-instagram"></i>
-                <i class="fa-brands fa-youtube"></i>
-                <i class="fa-brands fa-pinterest-p"></i>
-            </div>
-        </div>
-        <div class="footer-bottom-content">
-            <p>Designed By Job Portal teams</p>
-            <div class="copyright">
-                <p>&copy;Copyright <strong>Job portal</strong>.All Rights Reserved</p>
-            </div>
-        </div>
-    </footer> -->
+    
 </body>
 </html>
