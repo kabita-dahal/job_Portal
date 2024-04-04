@@ -38,10 +38,10 @@
             echo "Data inserted successfully";
 
             // Redirect based on user type
-        if ($user_type == 'Jobseeker') {
+        if ($user_type == 'jobseeker') {
             header("Location: jobseekerregister.php");
             exit; // Ensure script execution stops after redirection
-        } elseif ($user_type == 'Recuiter') {
+        } elseif ($user_type == 'employer') {
             header("Location: Employers registerform.php");
             exit; // Ensure script execution stops after redirection
         }
@@ -85,8 +85,8 @@
             <div class="field-group">
                 <label for="user_type"><b>User Type:</b> </label>
                 <select name="user_type" id="user_type">
-                    <option value="Jobseeker">Jobseeker</option>
-                    <option value="Recuiter">Recuiter</option>
+                    <option value="jobseeker">Jobseeker</option>
+                    <option value="employer">Employer</option>
                 </select>
                 <span><?php echo isset($err['user_type'])?$err['user_type']:''; ?></span>
             </div>

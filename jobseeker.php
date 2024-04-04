@@ -1,8 +1,8 @@
 <?php
-error_reporting(0);
+// error_reporting(0);
 try{
     require_once 'connection.php';
-    $sql = "select p_id,fname,email,address,cv from jobseeker ";
+    $sql = "select p_id,fname, address, cv from jobseeker ";
     $result = $connection->query($sql);
     $jobseekers = [];
     if ($result->num_rows > 0) { // mysqli_num_rows()
@@ -40,12 +40,12 @@ try{
             <tr>
                 <td><?php echo $jobseeker['p_id'] ?></td>
                 <td><?php echo $jobseeker['fname'] ?></td>
-                <td><?php echo $jobseeker['email'] ?></td>
+                <td><?php echo 'jobseeker@gmail' ?></td>
                 <td>2</td>
                 <td><?php echo $jobseeker['address'] ?></td>
                 <td>
-                    <a onclick="return confirm('are you sure to update?')" href="update.php?id=<?php echo $jobseeker['id'] ?>">Update</a>
-                    <a onclick="return confirm('are you sure to delete?')" href="delete.php?id=<?php echo $jobseeker['id'] ?>">Delete</a>
+                <a onclick="return confirm('Are you sure to update?')" href="update.php?id=<?php echo $job['id'] ?>">Update</a>
+                <a onclick="return confirm('Are you sure to delete?')" href="delete.php?id=<?php echo $job['id'] ?>">Delete</a>
                 </td>
             </tr>
         <?php } ?>

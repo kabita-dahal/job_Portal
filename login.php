@@ -1,20 +1,46 @@
 <?php
-if (isset($_COOKIE['email'])) {
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
-    $_SESSION['email'] = $_COOKIE['email'];
 }
+
+$connection = new mysqli('localhost', 'root', '', 'jobportal');
 $email = $password = '';
-if (isset($_POST['btnLogin'])) {
-    $err =[];
-    if (isset($_POST['email']) && !empty($_POST['email']) && trim($_POST['email'])){
-        $email = trim($_POST['email']);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $err = [];
+    
+    if (isset($_POST['email']) && !empty($_POST['email']) && trim($_POST['email'])) {
+        $email = $_POST['email'];
     } else {
-        $err['email'] = 'Enter email';
+        $err['email'] = 'Enter Email';
     }
-    if(isset($_POST['password']) && !empty($_POST['password'])){
+
+    if (isset($_POST['password']) && !empty($_POST['password'])) {
         $password = $_POST['password'];
     } else {
         $err['password'] = 'Enter password';
+    }
+
+    if (count($err) == 0) {
+        $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+        $result = $connection->query($sql);
+        
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            if ($user['user_type'] == 'jobseeker') {
+                $_SESSION['email'] = $email;
+                header('location:jobseekerdashboard.php');
+                exit;
+            } elseif ($user['user_type'] == 'employer') {
+                $_SESSION['email'] = $email;
+                header('location:empdashboard.php');
+                exit;
+            } else {
+                echo 'Invalid role';
+            }
+        } else {
+            echo 'Login failed';
+        }
     }
 }
 ?>
@@ -56,28 +82,4 @@ if (isset($_POST['btnLogin'])) {
             <p>Don"t have any account yet? <a href="user.php">Create a new account</a> today.</p>
         </form>
     </section>
-    <footer id="footer">
-        <div class="footer-content">
-          <div class="logo">
-            <h2>Job Portal</h2>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
-                <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, molestias!
-            </p>
-            <div class="socail-links">
-                <i class="fa-brands fa-twitter"></i>
-                <i class="fa-brands fa-facebook-f"></i>
-                <i class="fa-brands fa-instagram"></i>
-                <i class="fa-brands fa-youtube"></i>
-                <i class="fa-brands fa-pinterest-p"></i>
-            </div>
-        </div>
-        <div class="footer-bottom-content">
-            <p>Designed By Job Portal teams</p>
-            <div class="copyright">
-                <p>&copy;Copyright <strong>Job portal</strong>.All Rights Reserved</p>
-            </div>
-        </div>
-    </footer>
-</body>
-</html>
+

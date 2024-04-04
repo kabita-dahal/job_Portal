@@ -35,7 +35,6 @@ input, select, textarea{
    font-size: medium;
 
 }
-input[id="jobTitle"],
 input[id="qualification"]{
     width: 600px;
 }

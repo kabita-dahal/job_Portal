@@ -1,5 +1,5 @@
 <?php
-$cname = $industry = $contact_no = $location = '';
+$cname = $industry = $contact_no = $location = $terms='';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['cname']) && !empty($_POST['cname']) && trim($_POST['cname'])) {
         $cname = $_POST['cname'];
@@ -30,9 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         $errors['location'] = 'Enter company location';
     }
-
-    
-
     if (!isset($_POST['terms'])) {
         $errors['terms'] = 'You must agree to the terms and conditions';
     }
@@ -41,9 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $industry = $_POST['industry'];
     $contact_no = $_POST['contact_no'];
     $location = $_POST['location'];
+    $terms =$_POST['terms'];
     try{
         require_once 'connection.php';
-        $sql = "INSERT INTO employer(cname, industry, email, password, contact_no, location, confirm_password) values('$cname', '$industry', '$email', '$password', '$contact_no', '$location', '$confirm_password')";
+        $sql = "INSERT INTO employer(cname, industry,contact_no, location, terms) values('$cname', '$industry', '$contact_no ','$location', '$terms')";
         $connection->query($sql);
         echo "Data inserted successfully";
     }catch(Exception $ex){
@@ -78,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="container_1">
 
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
+        <form action="login.php" method="post">
             <h3>Registration Form</h3>
 
             <div class="inputbox">
@@ -111,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="button">
                 <button type="submit">Register</button>
+                </a>
             </div>
         </form>
     </div>
