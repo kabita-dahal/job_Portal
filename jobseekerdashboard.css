@@ -2,40 +2,51 @@
     width: 20px;
 }
 .left_container{
-    width: 200px;
+    width: 300px;
     height: 400px;
-    box-shadow: rgba(37, 37, 37, 0.2) 0px 2px 8px 0px;
     border-radius: 1rem;
-    top:200px;
+    top:100px;
     position: sticky;
-    margin-top: 18px;
-    z-index: 1;
-    padding: 10px;
+    padding: 25px;
+    margin-top: 10px;
+    border: 1px solid #c3c1c1;
+    background-color: rgb(255, 255, 255);
+}
+.banner-main{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
 }
 .banner-container {
-    width: 100%;
-    overflow: hidden;
+    width: 900px;
+    overflow: hidden; 
+    display: inline-flex;
+
   }
 .banner-slide{
     position: relative;
     width:100%;
-    height: 500px;
+    height: 350px;
+    border-radius: 40px;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 50px
+    margin-bottom: 50px;
+    transition: transform 0.5s ease;
+    border: 1px solid #c3c1c1;
 }
 .banner-slide img {
-    width: 500px;
-  }
-  
-  .banner-slide:nth-child(1) {
+    width: auto;
+    height: 300px;
+    border-radius: 50px;
+}
+ .banner-slide:nth-child(1) {
     background-color: #ffffff;}
 .banner-slide:nth-child(2) {
-    background-color: #fdeeea /* Color of the second image */
+    background-color: #fdeeea 
 }.banner-slide:nth-child(3) {
-    background-color: #fbfbfb; /* Color of the second image */
+    background-color: #fbfbfb; 
 }.banner-slide:nth-child(4) {
-    background-color: #dbe3d3; /* Color of the second image */
+    background-color: rgb(219,225,208); 
 }
 .banner-slide .text_1{
     margin-top:100px ;
@@ -51,8 +62,149 @@ h3{
     font-size: 25px;
     text-align: center;
     margin-top: 20px;
-}    
+}  
+.dropdown {
+    position: absolute;
+    top: 73px; 
+    right: 10px;
+    background-color: #fdfdfd;
+    width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 10px;
+}
+.dropdown::before{
+    content: '';
+    position: absolute;
+    top: -18px;
+    right: 28px;
+    border: 10px solid;
+    border-color: transparent transparent #f4f2f2 transparent;
+}
+.dropdown .user-info{
+    display: flex;
+    align-items: center;
+}
+.dropdown .user-info img{
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 1.5px solid #338573;
+        margin-right: 8px;
+}
+.dropdown .dropdownlist img{
+width: 15px;
+height: 15px;
+background: #e5e5e5;
+border-radius: 35%;
+padding: 5px;
+margin-right: 15px;
+}
+.dropdown hr{
+    border: 0;
+    width: 100%;
+    height: 1px;
+    margin: 10px 0 5px;
+    background: #ccc;
+}
+.dropdown .dropdownlist .sub-menu-links{
+    display: flex;
+    align-items: center;
+    color: #525252;
+    margin: 12px 0;
+}
+.dropdown .dropdownlist .sub-menu-links p{
+width: 100%;
+}
+.dropdownlist :hover p{
+font-weight: 600;
+transition: transform 0.5s;
+transform: translateY(-0.4px);
+}
+.card-container{
+    width: 300px;
+    height: 350px;
+    border-radius: 1rem;
+    position: relative;
+    border: 1px solid #c3c1c1;
+    padding: 25px;
+    background-color: #FFF;
+
+    }
+.card-container hr{
+    border: 0;
+    width: 100%;
+    height: 1px;
+    margin: 10px 0 5px;
+    background: #ccc;
+}
+    .lower-container{
+        height: 100px;
+        background: #FFF;
+        padding: 20px;
+        padding-top: 40px;
+        text-align: center;
+        }
+     .lower-container p{
+        font-size: 16px;
+        color: gray;
+        margin-bottom: 30px;
+        }
+        .image-container{
+            width:300px;
+            padding: 5px;
+        }
+.image-container img{
+width: 80px;
+height: 80px;
+border-radius: 50%;
+position: relative;
+top: 50%;
+left: 50%;
+transform: translate(-50%, 10%);
+border: 1px solid #338573;
+
+     }
+     .image-container h4{
+        display: flex;
+     justify-content: center;
+     font-size: 20px;
+     margin-top: 20px;
+     }
+     .job_box1{
+        display: flex;
+        justify-content:space-around;
+     }
+     .job_list1{
+        width: 500px;
+        align-items: center;
+        display: grid;
+    gap: 1rem;
+    margin-top: 10px;
+     }
+     .job_list1 button{
+        height: 35px;
+    margin-top: 45px;
+     }
+.job-box2{
+ width: 900px;
+ display: flex;
+ justify-content: center;
+         }
+ ul li{
+ gap: 25px;
+ justify-content: center;
+ align-items: center;
+ margin-top: 25px;
+          }
+ ul li {
+ display: flex;
+          }
+ ul i {
+font-size: 1.3rem;
+          }
 
 
-  
-  
+     
