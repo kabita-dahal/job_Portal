@@ -13,7 +13,7 @@
         <nav>
             <div class="logo">
               
-                <h2 onclick="window.location.href='jobseekerdashboard.php'">Job Portal</h2>
+                <h2 onclick="window.location.href='index.php'">Job Portal</h2>
               </a>
             </div>
             <div class="search-bar">
@@ -25,104 +25,45 @@
          <div class="notification-icon" onclick="window.location.href='notification.php'">
         <i class="fas fa-bell"></i>
         </div>
-        <div class="profile" onclick="toggleDropdown()">
-                <img src="Images/profile.png" alt="profile" width=25px>
+         <div class="profile" onclick="window.location.href='profile.php'">
+                <img src="Images/profile.png" alt="" width=25px>
         </div>
-        <div class="dropdown" id="dropdownMenu">
-                <div class="user-info">
-                <img src="Images/profile.png" alt="profile" width="25px"> 
-                <h4>Dikshya Shahi</h4>
-                </div>
-                 <hr>
-                <div class="dropdownlist">
-                
-                 <a href="#" class="sub-menu-links"><img src="Images/exit.png"><p>Logout</p> </a>
-               <a href="#" class="sub-menu-links"> <img src="Images/help.png"><p>Help</p></a>
-               <a href="profile.php" class="sub-menu-links"><img src="Images/edit-info.png"><p> Profile</p onclick="window.location.href='profile.php'"></a>
-                
-                </div>
-            </div>
         </nav>
-    
-
-    <!-- Other content in your body -->
-
-    <script>
-    // Set initial state of dropdown menu to hidden
-    const dropdownMenu = document.getElementById('dropdownMenu');
-    dropdownMenu.style.display = 'none';
-
-    function toggleDropdown() {
-        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Close dropdown if user clicks outside
-    document.addEventListener('click', function(event) {
-        const profileIcon = document.querySelector('.profile');
-
-        if (!profileIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            dropdownMenu.style.display = 'none';
-        }
-    });
-</script>
-
-        </nav>
-  
-       <div class="banner-main">
-       <div class="banner-container">
+  </div>
+        <div class="banner-container">
         <div class="banner-slide">
             <div class="text_1"><h1><span>Find</span> Your </br> Team</h1></br></br>
-            
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p> 
             </div>
             <div class="banner_image"><img src="Images/gf.gif" ></div>
           </div>  
           <div class="banner-slide">
             <div class="text_1"><h1><span>Find</span> dreams </br> with <span>opportunities</span></h1></br></br>
-            
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p> 
             </div>
             <div class="banner_image"><img src="Images/gif3.gif" ></div>
           </div>
           <div class="banner-slide">
             <div class="text_1"><h1><span>Enhance </span> Your </br> Skill </h1></br></br>
-            
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p> 
             </div>
             <div class="banner_image"><img src="Images/gif4.gif" ></div>
           </div>
           <div class="banner-slide">
             <div class="text_1"><h1><span>Grab</span> Work </br> Life <span>Balance</span></h1></br></br>
-            
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p> 
             </div>
             <div class="banner_image"><img src="Images/gif5.gif"></div>
           </div>
         </div>
-        <div class="rightside-banner">
-        <div class="card-container">
-         
-         <div class="image-container">
-            <img src="Images/profile.png" />
-            <h4>Dikshya Shahi</h4>
-         </div>
-     <hr>
-      <div class="lower-container">
-         
-            <h4>Front-end Developer</h4>
-            <p>sodales accumsan ligula. Aenean sed diam tristique,
-               fermentum mi nec, ornare arch.
-            </p>
-            <ul>
-              <li><i class="fab fa-x"></i>
-              <i class="fab fa-linkedin"></i>
-              <i class="fab fa-facebook"></i>
-              <i class="fab fa-github"></i>
-            </li>
-            </ul>
-           <button class="button2">View CV</button>
-         
-      </div>
-  </div> 
-
-        </div>
-       </div>
 
  
       <!-- javascript for banner -->
@@ -157,12 +98,11 @@
 
 
   <!-- job section -->
-  <!--  -->
-
-  <div class="job_box1"> 
-<div class="job-box2">
-        <div class="job_list1">
+          <div class="heading4">
         <h3>Jobs You may like</h3>
+        </div>
+        <div class="job_box"> 
+        <div class="job_list">
 <?php
 $connection = new mysqli('localhost', 'root', '', 'jobportal');
 $sql = "SELECT id, jobTitle, jobLocation, jobType FROM jobs";
@@ -189,8 +129,7 @@ if ($result->num_rows > 0) {
     echo 'No jobs found';
 }
 ?>
-      </div>
-</div>
+          </div>
           <div class="left_container">
             <h3>Jobs by categories</h3>
               <div class="category_type">
@@ -267,6 +206,5 @@ if ($result->num_rows > 0) {
           </div>
       </div>
   </footer>
-</div>
 </body>
 </html>

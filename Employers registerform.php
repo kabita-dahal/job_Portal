@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="container_1">
 
-        <form action=" " method="post">
+        <form action="login.php" method="post">
             <h3>Registration Form</h3>
 
             <div class="inputbox">

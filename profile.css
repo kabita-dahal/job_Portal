@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  min-height: 100vh;
   font-family: "Poppins", sans-serif;
   list-style-type: none;
  text-decoration: none;
@@ -12,17 +13,25 @@ body {
   justify-content: center;
 }
 .left__col {
-  padding: 35px;
-  width: 450px;
+  padding: 25px 20px;
+  text-align: center;
+  max-width: 350px;
   position: relative;
   margin: 0 auto;
-  border: 1px solid #c3c1c1;
-  margin-top: 40px;
-  border-radius: 20px;
 }
  .img__container {
   position: relative;
   width: 250px;
+  align-items: center;
+}
+ .img__container img {
+  margin-top: 100px;
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 50%;
+  display: flex;
+  box-shadow: 1px 3px 12px rgba(0, 0, 0, 0.18);
 }
 .left__col h2 {
   margin-top: 60px;
@@ -49,7 +58,7 @@ body {
 }
 /* Responsiveness */
 
-/* @media (min-width: 868px) {
+@media (min-width: 868px) {
   .cols__container {
     margin: 0 auto;
     width:1200px;
@@ -74,88 +83,4 @@ body {
    .cols__container .right__col nav {
     flex-direction: row;
   }
-} */
-.upload{
-  width: 140px;
-  position: relative;
-  margin: auto;
-  text-align: center;
-}
-.upload img{
-  border-radius: 50%;
-  border: 1px solid #151414;
-  width: 200px;
-  height: 200px;
-  margin-top: 100px;
-  object-fit: cover;
-}
-.upload .rightRound{
-  position: absolute;
-  bottom: 0;
-  right: -40px;
-  background: #079213;
-  width: 32px;
-  height: 32px;
-  line-height: 33px;
-  text-align: center;
-  border-radius: 50%;
-  overflow: hidden;
-  cursor: pointer;
-}
-.upload .leftRound{
-  position: absolute;
-  bottom: 0;
-  left: 25px;
-  background: red;
-  width: 32px;
-  height: 32px;
-  line-height: 33px;
-  text-align: center;
-  border-radius: 50%;
-  overflow: hidden;
-  cursor: pointer;
-}
-.upload .fa{
-  color: white;
-}
-.upload input{
-  position: absolute;
-  transform: scale(2);
-  opacity: 0;
-}
-.upload input::-webkit-file-upload-button, .upload input[type=submit]{
-  cursor: pointer;
-}
-.form-group button{
-  all: unset;
-}
-.hidden {
-  display: none;
-}
-.form-group{
-  margin: 30px;
-}
-.form-group img{
-  width:15px;
-}
-.form-group label{
-  width: 100%;
-    margin: 12px 0;
-    padding: 40px;
-}
-.form-group input{
-width: 290px;
-  height:40px;
-  border: 1px solid#ddd;
-  border-radius: 6px;
-  outline: none;
-  margin: 10px 0 15px 40px;
- font-size: medium;
-}
-.form-group span{
-  width: 100%;
-  text-align: center;
-}
-.update{
-  margin-left: 170px
 }
