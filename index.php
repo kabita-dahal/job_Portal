@@ -32,7 +32,6 @@
         <nav>
             <div class="logo">
                 <h2 onclick="window.location.href='index.php'">Job Portal</h2>
-              </a>
             </div>
             <div class="search-bar">
              <form action="#" method="GET"> <!-- Update action and method attributes as needed -->
@@ -56,9 +55,16 @@
                   </div>
               </li>
           </ul> -->
-            <div class="content">
-            <button class="dropdown-btn" onclick="window.location.href='login.php'">Login </button>
-            <button class="dropdown-btn" onclick="window.location.href='user.php'">Register </button>
+            <div class="main-nav">
+            <span class="toggle-menu" id="toggleMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+              <ul>
+                <li><button class="dropdown-btn" onclick="window.location.href='login.php'">Login </button></li>
+                <li><button class="dropdown-btn" onclick="window.location.href='user.php'">Register </button></li>
+              </ul>
             </div>
         </nav>
         <div class="banner">

@@ -1,66 +1,68 @@
 <?php
 $jobTitle = $jobCategory = $jobType = $jobLocation = $salaryRange = $experienceLevel = $applicationDeadline = $qualification = $jobDescription = $jobrequirement ='';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['jobTitle']) && !empty($_POST['jobTitle']) && trim($_POST['jobTitle'])) {
-        $jobTitle = $_POST['jobTitle'];
-        if (!preg_match('/^[a-zA-Z\s]{3,50}$/', $jobTitle)) {
-            $errors['jobTitle'] = 'Enter a valid job title';
-        }
-    } else {
-        $errors['jobTitle'] = 'Enter job title';
-    }
-
-    if (isset($_POST['jobCategory']) && !empty($_POST['jobCategory'])) {
-        $jobCategory = $_POST['jobCategory'];
-    } else {
-        $errors['jobCategory'] = 'Select job category';
-    }
-
-    if (isset($_POST['jobType']) && !empty($_POST['jobType'])) {
-        $jobType = $_POST['jobType'];
-    } else {
-        $errors['jobType'] = 'Select job type';
-    }
-
-    if (isset($_POST['jobLocation']) && !empty($_POST['jobLocation']) && trim($_POST['jobLocation'])) {
-        $jobLocation = $_POST['jobLocation'];
-    } else {
-        $errors['jobLocation'] = 'Enter job location';
-    }
-
-    if (isset($_POST['salaryRange']) && !empty($_POST['salaryRange']) && trim($_POST['salaryRange'])) {
-        $salaryRange = $_POST['salaryRange'];
-    } else {
-        $errors['salaryRange'] = 'Enter salary range';
-    }
-
-    if (isset($_POST['experienceLevel']) && !empty($_POST['experienceLevel']) && trim($_POST['experienceLevel'])) {
-        $experienceLevel = $_POST['experienceLevel'];
-    } else {
-        $errors['experienceLevel'] = 'Enter experience';
-    }
-
-    if (isset($_POST['applicationDeadline']) && !empty($_POST['applicationDeadline'])) {
-        $applicationDeadline = $_POST['applicationDeadline'];
-    } else {
-        $errors['applicationDeadline'] = 'Enter deadline';
-    }
-
-    if (isset($_POST['qualification']) && !empty($_POST['qualification']) && trim($_POST['qualification'])) {
-        $qualification = $_POST['qualification'];
-    } else {
-        $errors['qualification'] = 'Enter qualification';
-    }
-
-    if (isset($_POST['jobDescription']) && !empty($_POST['jobDescription']) && trim($_POST['jobDescription'])) {
-        $jobDescription = $_POST['jobDescription'];
-    } else {
-        $errors['jobDescription'] = 'Enter job description';
-    }
-    if (isset($_POST['jobrequirement']) && !empty($_POST['jobrequirement']) && trim($_POST['jobrequirement'])) {
-        $jobrequirement = explode("\n", $_POST['jobrequirement']);
+    if (isset($_POST['jobpost'])) {
+        if (isset($_POST['jobTitle']) && !empty($_POST['jobTitle']) && trim($_POST['jobTitle'])) {
+            $jobTitle = $_POST['jobTitle'];
+            if (!preg_match('/^[a-zA-Z\s]{3,50}$/', $jobTitle)) {
+                $errors['jobTitle'] = 'Enter a valid job title';
+            }
         } else {
-            $errors['jobrequirement'] = 'Enter job Requirement';
+            $errors['jobTitle'] = 'Enter job title';
+        }
+
+        if (isset($_POST['jobCategory']) && !empty($_POST['jobCategory'])) {
+            $jobCategory = $_POST['jobCategory'];
+        } else {
+            $errors['jobCategory'] = 'Select job category';
+        }
+
+        if (isset($_POST['jobType']) && !empty($_POST['jobType'])) {
+            $jobType = $_POST['jobType'];
+        } else {
+            $errors['jobType'] = 'Select job type';
+        }
+
+        if (isset($_POST['jobLocation']) && !empty($_POST['jobLocation']) && trim($_POST['jobLocation'])) {
+            $jobLocation = $_POST['jobLocation'];
+        } else {
+            $errors['jobLocation'] = 'Enter job location';
+        }
+
+        if (isset($_POST['salaryRange']) && !empty($_POST['salaryRange']) && trim($_POST['salaryRange'])) {
+            $salaryRange = $_POST['salaryRange'];
+        } else {
+            $errors['salaryRange'] = 'Enter salary range';
+        }
+
+        if (isset($_POST['experienceLevel']) && !empty($_POST['experienceLevel']) && trim($_POST['experienceLevel'])) {
+            $experienceLevel = $_POST['experienceLevel'];
+        } else {
+            $errors['experienceLevel'] = 'Enter experience';
+        }
+
+        if (isset($_POST['applicationDeadline']) && !empty($_POST['applicationDeadline'])) {
+            $applicationDeadline = $_POST['applicationDeadline'];
+        } else {
+            $errors['applicationDeadline'] = 'Enter deadline';
+        }
+
+        if (isset($_POST['qualification']) && !empty($_POST['qualification']) && trim($_POST['qualification'])) {
+            $qualification = $_POST['qualification'];
+        } else {
+            $errors['qualification'] = 'Enter qualification';
+        }
+
+        if (isset($_POST['jobDescription']) && !empty($_POST['jobDescription']) && trim($_POST['jobDescription'])) {
+            $jobDescription = $_POST['jobDescription'];
+        } else {
+            $errors['jobDescription'] = 'Enter job description';
+        }
+        if (isset($_POST['jobrequirement']) && !empty($_POST['jobrequirement']) && trim($_POST['jobrequirement'])) {
+            $jobrequirement = explode("\n", $_POST['jobrequirement']);
+            } else {
+                $errors['jobrequirement'] = 'Enter job Requirement';
+            }
         }
 }
 ?>

@@ -16,7 +16,6 @@
             <div class="logo">
               
                 <h2 onclick="window.location.href='index.php'">Job Portal</h2>
-              </a>
             </div>
             <div class="search-bar">
              <form action="#" method="GET"> <!-- Update action and method attributes as needed -->

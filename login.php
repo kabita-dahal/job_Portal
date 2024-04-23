@@ -21,27 +21,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $err['password'] = 'Enter password';
     }
 
-    if (count($err) == 0) {
-        $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-        $result = $connection->query($sql);
+    // if (count($err) == 0) {
+    //     $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
+    //     $result = $connection->query($sql);
         
-        if ($result->num_rows > 0) {
-            $user = $result->fetch_assoc();
-            if ($user['user_type'] == 'jobseeker') {
-                $_SESSION['email'] = $email;
-                header('location:jobseekerdashboard.php');
-                exit;
-            } elseif ($user['user_type'] == 'employer') {
-                $_SESSION['email'] = $email;
-                header('location:empdashboard.php');
-                exit;
-            } else {
-                echo 'Invalid role';
-            }
-        } else {
-            echo 'Login failed';
-        }
-    }
+    //     if ($result->num_rows > 0) {
+    //         $user = $result->fetch_assoc();
+    //         if ($user['user_type'] == 'jobseeker') {
+    //             $_SESSION['email'] = $email;
+    //             header('location:jobseekerdashboard.php');
+    //             exit;
+    //         } elseif ($user['user_type'] == 'employer') {
+    //             $_SESSION['email'] = $email;
+    //             header('location:empdashboard.php');
+    //             exit;
+    //         } else {
+    //             echo 'Invalid role';
+    //         }
+    //     } else {
+    //         echo 'Login failed';
+    //     }
+    // }
 }
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>login</title>
     <link rel="stylesheet" href="login.css"> 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -58,14 +58,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="header">
         <nav>
             <div class="logo">
-            <h2>Job Portal</h2>
+            <h2 onclick="window.location.href='index.php'">Job Portal</h2>
             </div>
         </nav>
         </div>
     <section class="form-box">
         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="login_form">
             <h3>LOGIN</h3>
-            <p>Already a registered member? Login here</p>
             <div class="field-group">
                 <label for="email"><b>Email:</b></label>
                 <input type="text" id="email" name="email">

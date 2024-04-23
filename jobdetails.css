@@ -14,3 +14,23 @@
   .button:active {
     transform: scale(1.1); 
   }
+  /* for griding */
+  
+  .jobdetails_container{
+    width: 950px;
+    height: 600px;
+    margin: auto ;
+    display: grid;
+    grid-template-columns:4fr 2fr ;
+}
+ .jobdetails_child1{
+	position: initial;
+	padding: 20px;
+}
+.jobdetails_child2{
+	position: initial;
+	padding: 20px;
+} 
+.description-content{
+  display: flex;
+}

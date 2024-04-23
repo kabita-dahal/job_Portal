@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emp dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         table{
             width: 100%;
@@ -37,7 +38,7 @@
     nav a {
         display: block;
         color: #338573;
-        padding: 14px 16px;
+        padding: 10px 12px;
         text-decoration: none;
         font-weight: normal;
         font-size: 16px;
@@ -53,6 +54,11 @@
         margin-right: 20px;
     }
 
+    .nav-links{
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+    }
     .nav-links ul {
         list-style-type: none;
         margin: 0;
@@ -101,6 +107,12 @@
                     <li><a href="?page=job_post" <?php echo ($activePage === 'job_post') ? 'class="active"' : ''; ?>>Open Position</a></li>
                 </ul>
             </div>
+            <div class="notification-icon" onclick="window.location.href='notification.php'">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="profile" onclick="window.location.href='profile.php'">
+                <img src="Images/profile.png" alt="" width=25px>
+             </div>
         </nav>
     </div>
         <hr>

@@ -65,6 +65,15 @@
     cursor: pointer;
     width: 60px;
 }
+.main-nav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav li {
+    display: inline;
+}
   button {
     padding: 10px 20px;
     font-size: 16px;
@@ -272,10 +281,85 @@ color: #338573}
     font-weight: 550;
     color: white;
 }
-.jobdetails_container{
+/* .jobdetails_container{
     display: flex;
     justify-content: space-around;
 }
 .jobdetails_child2{
     width: 500px;
+} */
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .header nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .search-bar {
+        /*margin-top: 10px; Adjusted margin for better spacing */
+        order: 2; /* Change order to display search bar below the logo on smaller screens */
+    }
+
+    .search-bar form {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-bar input[type="text"] {
+        width: 100%;
+        max-width: 300px; /* Adjusted max-width for smaller screens */
+    }
+
+    .logo{
+        font-size: 12px;
+    }
+    .main-nav {
+        position: relative;
+        z-index: 10;
+    }
+
+    .toggle-menu {
+        display: inline-block;
+    }
+
+    .main-nav ul {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: white;
+        width: 200px;
+        display: none;
+    }
+
+    .main-nav li {
+        width: 100%;
+    }
+
+    .main-nav ul.show {
+        display: block;
+    }
+}
+
+/* Menu toggle */
+.toggle-menu {
+    display: none;
+    border: 1px solid transparent;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.toggle-menu span {
+    display: block;
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 3px;
+    margin: 4px 0;
+}
+
+.toggle-menu:hover {
+    border-color: var(--primary-color);
 }

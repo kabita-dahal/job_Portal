@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="header">
         <nav>
             <div class="logo">
-                <h2>Job Portal</h2>
+            <h2 onclick="window.location.href='index.php'">Job Portal</h2>
             </div>
             <div class="member">
                 <p> Are you Already a member?
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="container_1">
 
-        <form action="login.php" method="post">
+        <form action="" method="post">
             <h3>Registration Form</h3>
 
             <div class="inputbox">

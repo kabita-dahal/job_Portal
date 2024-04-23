@@ -11,6 +11,7 @@
         padding: 30px;
         margin: 30px auto;
         max-width: 600px;
+        border-radius: 5px;
     }
     .field-group{
         display: flex;
@@ -28,6 +29,8 @@
     input, select{
         height: 38px;
         padding: 6px;
+        border: 1px solid#ddd;
+     border-radius: 6px;
     }
     button[type=login]{
         height: 40px;

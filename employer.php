@@ -2,7 +2,7 @@
 error_reporting(0);
 try{
     require_once 'connection.php';
-    $sql = "select c_id,cname from employer ";
+    $sql = "select c_id,cname, industry, location, contact_no from employer ";
     $result = $connection->query($sql);
     $employers = [];
     if ($result->num_rows > 0) { // mysqli_num_rows()
@@ -31,21 +31,21 @@ try{
         <tr>
             <th>c_id</th>
             <th>Company Name</th>
-            <th>Email</th>
-            <th>Job posting</th>
-            <th>Registered By</th>
+            <th>Industry</th>
+            <th>Contact No</th>
+            <th>Location</th>
             <th>Action</th>
         </tr>
         <?php foreach ($employers as $key => $employer) { ?>
             <tr>
                 <td><?php echo $employer['c_id'] ?></td>
                 <td><?php echo $employer['cname'] ?></td>
-                <td><?php echo 'company@gmail.com' ?></td>
-                <td>1</td>
-                <td>Sandeep</td>
+                <td><?php echo $employer['industry'] ?></td>
+                <td><?php echo $employer['contact_no'] ?></td>
+                <td><?php echo $employer['location'] ?></td>
                 <td>
                     <a onclick="return confirm('are you sure to update?')" href="update.php?id=<?php echo $employer['id'] ?>">Update</a>
-                    <a onclick="return confirm('are you sure to delete?')" href="delete.php?id=<?php echo $employer['id'] ?>">Delete</a>
+                    <a onclick="return confirm('are you sure to delete?')" href="delete.php?c_id=<?php echo $employer['c_id'] ?>">Delete</a>
                 </td>
             </tr>
         <?php } ?>

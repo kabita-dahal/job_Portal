@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    
 
     <div class="Job_post_container">
-        <form action="" method="post">
+        <form action="" method="post" name="jobpost">
             <h3>Post a job</h3>
 
             <div class="box_1">
@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <label for="jobrequirement">Requirements:</label>
             <span><?php echo isset($errors['jobrequirement']) ? $errors['jobrequirement'] : '' ?></span><br>
-            <textarea id="jobrequirement" name="jobrequirement" placeholder="Enter Job Requirement" rows="4" cols="50"><?php isset($jobrequirement) ? $jobrequirement : ''; ?></textarea>?><br>
+            <textarea id="jobrequirement" name="jobrequirement" placeholder="Enter Job Requirement" rows="4" cols="50"><?php isset($jobrequirement) ? $jobrequirement : ''; ?></textarea><br>
             <div class="button_2">
             <button class="button" onclick="this.innerHTML = 'Posted!!';">
   Post

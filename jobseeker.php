@@ -45,7 +45,7 @@ try{
                 <td><?php echo $jobseeker['address'] ?></td>
                 <td>
                 <a onclick="return confirm('Are you sure to update?')" href="update.php?id=<?php echo $job['id'] ?>">Update</a>
-                <a onclick="return confirm('Are you sure to delete?')" href="delete.php?id=<?php echo $job['id'] ?>">Delete</a>
+                <a onclick="return confirm('Are you sure to delete?')" href="delete.php?p_id=<?php echo $jobseeker['p_id'] ?>">Delete</a>
                 </td>
             </tr>
         <?php } ?>
