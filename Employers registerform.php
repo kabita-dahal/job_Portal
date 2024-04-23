@@ -76,7 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     <div class="container_1">
 
+<<<<<<< HEAD
         <form action="" method="post">
+=======
+        <form action=" " method="post">
+>>>>>>> 4d7b15d1c7e3237f94f6b2ef5460bf015112fe71
             <h3>Registration Form</h3>
 
             <div class="inputbox">

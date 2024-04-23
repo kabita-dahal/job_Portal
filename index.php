@@ -141,10 +141,11 @@
           <div class="left_image">
           <h3>Explore Opportunities!!</h3>
             <img src="Images/job_img2.png" alt="" width="350px">
-          </div>
+       </div>
+
+
+
         <div class="job_list">
-        
-        
 <?php
 $connection = new mysqli('localhost', 'root', '', 'jobportal');
 $sql = "SELECT id, jobTitle, jobLocation, jobType FROM jobs";

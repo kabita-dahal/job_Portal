@@ -73,8 +73,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             </div>
         </nav>
     </div>
+<<<<<<< HEAD
         <section class="form-box">
         <form action="" method="post" name="login_form">
+=======
+    <?php require_once 'menu.php'; ?>
+    <section class="form-box">
+        <form action=" " method="post" name="login_form">
+>>>>>>> 4d7b15d1c7e3237f94f6b2ef5460bf015112fe71
             <h3>Create your free job seeker account</h3>
             <p>Register with basic information, complete your profile and start applying for jobs for free.</p>
             <div class="field-group">
