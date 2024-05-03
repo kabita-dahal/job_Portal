@@ -71,7 +71,7 @@
         </div>
     <section class="form-box">
         <form action="" method="post" name="userlogin_form">
-            <h3>USER LOGIN</h3>
+            <h3>USER REGISTER</h3>
             <div class="field-group">
                 <label for="email"><b>Email:</b></label>
                 <input type="text" id="email" name="email" >

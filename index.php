@@ -28,6 +28,7 @@
       }
     }
   </script>  -->
+  
     <div class="header">
         <nav>
             <div class="logo">
@@ -39,6 +40,29 @@
             <button type="submit"><i class="fas fa-search"></i></button>
             </form>
          </div>
+         <div id="searchResults"></div>
+         <script src="js/jquery.min.js"></script>
+         <script>
+            $(document).ready(function() {
+                $('#searchForm').submit(function(event) {
+                    event.preventDefault(); // Prevent default form submission behavior
+
+                    // Get the search query
+                    var query = $('#searchInput').val();
+
+                    // Perform AJAX request to fetch search results
+                    $.get('/search', { q: query })
+                        .done(function(response) {
+                            // Update the search results container with the response
+                            $('#searchResults').html(response);
+                        })
+                        .fail(function(xhr, status, error) {
+                            // Error handling
+                            console.error('Request failed with status:', status);
+                        });
+                });
+            });
+            </script>
             <!-- <ul>
               <li class="dropdown">
                   <a href="#" class="dropbtn">Jobseeker</a>

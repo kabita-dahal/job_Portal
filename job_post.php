@@ -84,11 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt = $connection->prepare("INSERT INTO jobs (jobTitle, postedby, jobCategory, jobType, jobLocation, salaryRange, experienceLevel, applicationDeadline, qualification, jobDescription, jobrequirement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("sssssssssss", $jobTitle, $postedby, $jobCategory, $jobType, $jobLocation, $salaryRange, $experienceLevel, $applicationDeadline, $qualification, $jobDescription, $jobrequirement);
             
-            if ($stmt->execute()) {
-                echo "Job posted successfully";
-            } else {
-                echo "Error: " . $stmt->error;
-            }
+            // if ($stmt->execute()) {
+            //     echo "Job posted successfully";
+            // } else {
+            //     echo "Error: " . $stmt->error;
+            // }
         } catch (Exception $ex) {
             die('Error: ' . $ex->getMessage());
         }

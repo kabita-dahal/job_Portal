@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emp dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jobseekerdashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         table{
@@ -110,10 +111,41 @@
             <div class="notification-icon" onclick="window.location.href='notification.php'">
                 <i class="fas fa-bell"></i>
             </div>
-            <div class="profile" onclick="window.location.href='profile.php'">
-                <img src="Images/profile.png" alt="" width=25px>
-             </div>
+            <div class="profile" onclick="toggleDropdown()">
+                <img src="Images/profile.png" alt="profile" width=25px>
+            </div>
+            <div class="dropdown" id="dropdownMenu">
+                <div class="user-info">
+                <img src="Images/profile.png" alt="profile" width="25px"> 
+                <h4>XYZ companny</h4>
+                </div>
+                 <hr>
+                <div class="dropdownlist">
+                    <a href="#" class="sub-menu-links"><img src="Images/exit.png"><p>Logout</p> </a>
+                    <a href="#" class="sub-menu-links"> <img src="Images/help.png"><p>Help</p></a>
+                    <a href="profile.php" class="sub-menu-links"><img src="Images/edit-info.png"><p> Profile</p onclick="window.location.href='profile.php'"></a>
+                </div>
+            </div>
         </nav>
+        <script>
+            // Set initial state of dropdown menu to hidden
+            const dropdownMenu = document.getElementById('dropdownMenu');
+            dropdownMenu.style.display = 'none';
+
+            function toggleDropdown() {
+                dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+            }
+
+            // Close dropdown if user clicks outside
+            document.addEventListener('click', function(event) {
+                const profileIcon = document.querySelector('.profile');
+
+                if (!profileIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.style.display = 'none';
+                }
+            });
+        </script>
+
     </div>
         <hr>
         <?php

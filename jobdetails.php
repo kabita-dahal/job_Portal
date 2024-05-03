@@ -30,68 +30,121 @@
         <h3><?php echo $fetch_job['jobTitle']; ?>- Match Company</h3>
     </div>
     <div class="jobdetails_container">
-        <div class="jobdetails_child1">
-            <div class="description-content">
-                <!-- <div class="buttons">
-                    <button class="button2">View company</button>
-                </div> -->
-                <div class="buttons">
-                    <button class="button2" onclick="this.innerHTML = 'Applied!!';">Apply</button>
+        <div class="left-column">
+            <div class="jobdetails_child1">
+                <div class="row">
+                    <div class="pp-left">
+                        <div class="company-logo">
+                            <img src="Images/pathao.png" width="50px">
+                        </div>
+                        <div class="company-info">
+                            <h4><?php echo $fetch_job['jobTitle']; ?></h4>
+                            <p>pathao pvt ltd</p>
+                            <p><strong>Location:</strong> </p>
+                        </div>
+                    </div>
+                    <div class="pp-right"><?php echo $fetch_job['jobLocation']; ?>
+                        <div class="buttons">
+                            <button class="button2" onclick="this.innerHTML = 'Applied!!';"> <i class="fa-solid fa-paper-plane"></i> Apply</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        <div class="section">
-            <div class="section-content">
-                <p><strong>Minimum Qualification:</strong> <?php echo $fetch_job['qualification']; ?></p>
-                <p><strong>Experience Level:</strong> <?php echo $fetch_job['experienceLevel']; ?></p>
-                <p><strong>Location:</strong> <?php echo $fetch_job['jobLocation']; ?></p>
-                <p><strong>Application Deadline:</strong> <?php echo $fetch_job['applicationDeadline']; ?></p>
-                <p><strong>Salary Range:</strong> <?php echo $fetch_job['salaryRange']; ?></p>
+            
+        <div class="jobdetails_child2">
+            <div class="section">
+                <div class="section-content">
+                    <h2>Job Specification</h2>
+                    <div class="section__container banner__1__container">
+                        <div class="icon">
+                        <a href="#"><img src="Images/salary.png" alt="icon" /></a>
+                            <span>Offered Salary:</span>
+                            <p><?php echo $fetch_job['salaryRange']; ?></p>
+                        </div>
+                        <div class="icon">
+                        <a href="#"><img src="Images/hourglass.png" alt="icon" /></a>
+                            <span>Job Type:</span>
+                        </div>
+                        <div class="icon">
+                        <a href="#"><img src="Images/experience.png" alt="icon" /></a>
+                            <span>Experience:</span>
+                            <p><?php echo $fetch_job['experienceLevel']; ?></p>
+                        </div>
+                    </div>
+                    <div class="section__container banner__1__container">
+                        <div class="icon">
+                        <a href="#"><img src="Images/calender.png" alt="icon" /></a>
+                            <span>Valid Till:</span>
+                            <p><?php echo $fetch_job['applicationDeadline']; ?></p>
+                        </div>
+                        <div class="icon">
+                        <a href="#"><img src="Images/industry.png" alt="icon" /></a>
+                            <span>Industry:</span>
+                            <p></p>
+                        </div>
+                        <div class="icon">
+                        <a href="#"><img src="Images/qualification.png" alt="icon" /></a>
+                            <span>Qualification:</span>
+                            <p><?php echo $fetch_job['qualification']; ?></p>
+                        </div>
+                    </div>
+                    <!-- <p><strong>Minimum Qualification:</strong> <?php echo $fetch_job['qualification']; ?></p>
+                    <p><strong>Experience Level:</strong> <?php echo $fetch_job['experienceLevel']; ?></p>
+                    <p><strong>Application Deadline:</strong> <?php echo $fetch_job['applicationDeadline']; ?></p>
+                    <p><strong>Salary Range:</strong> <?php echo $fetch_job['salaryRange']; ?></p> -->
+                </div>
             </div>
         </div>
-        <div class="section">
-            <h2>Job Description</h2>
-            <div class="section-content">
-                <p><?php echo $fetch_job['jobDescription']; ?></p>
+        <div class="jobdetails_child3">
+            <div class="section">
+                <h2>Job Description</h2>
+                <div class="section-content">
+                    <p><?php echo $fetch_job['jobDescription']; ?></p>
+                </div>
             </div>
-        </div>
-        <div class="section">
-            <h2>Requirements</h2>
-            <div class="section-content">
-                <ul>
-                    <?php 
-                    if (is_string($fetch_job['jobrequirement'])) {
-                        $requirements = explode("\n", $fetch_job['jobrequirement']);
-                        foreach($requirements as $requirement) {
-                            echo "<li>" . htmlspecialchars($requirement, ENT_QUOTES, 'UTF-8') . "</li>";
+            <div class="section">
+                <h2>Requirements</h2>
+                <div class="section-content">
+                    <ul>
+                        <?php 
+                        if (is_string($fetch_job['jobrequirement'])) {
+                            $requirements = explode("\n", $fetch_job['jobrequirement']);
+                            foreach($requirements as $requirement) {
+                                echo "<li>" . htmlspecialchars($requirement, ENT_QUOTES, 'UTF-8') . "</li>";
+                            }
                         }
-                    }
-                    ?>
-                </ul>
+                        ?>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="section">
-            <h2>Responsibilities</h2>
-            <div class="section-content">
-                <ul>
-                    <li>Collaborate with the development team to create high-quality software solutions</li>
-                    <li>Participate in code reviews and provide constructive feedback</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                    <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                </ul>
+            <div class="section">
+                <h2>Responsibilities</h2>
+                <div class="section-content">
+                    <ul>
+                        <li>Collaborate with the development team to create high-quality software solutions</li>
+                        <li>Participate in code reviews and provide constructive feedback</li>
+                        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
+                        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
+                        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
+                        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    <?php
+        <?php
+            }
+        } else {
+            echo 'No jobs found';
         }
-    } else {
-        echo 'No jobs found';
-    }
-    ?>
+        ?>
+        </div>
     </div>
-    <div class="jobdetails_child2">
-        <h4>About Company</h4>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum molestiae nostrum distinctio, repudiandae asperiores laborum soluta, maxime sapiente, eos praesentium voluptatem eveniet? Ipsa possimus iusto molestias culpa neque odio, voluptatibus inventore deserunt magni nesciunt dignissimos porro quidem assumenda? Voluptatum eius id temporibus! Quae voluptatum voluptate, reiciendis ipsam culpa doloremque adipisci incidunt, esse, dolores fuga inventore. Distinctio ut recusandae labore reprehenderit.</p>
+    <div class="right-column">
+        <div class="jobdetails_child4_sticky_wrapper">
+            <div class="jobdetails_child4">
+                <h2>About Company</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illum molestiae nostrum distinctio, repudiandae asperiores laborum soluta, maxime sapiente, eos praesentium voluptatem eveniet? Ipsa possimus iusto molestias culpa neque odio, voluptatibus inventore deserunt magni nesciunt dignissimos porro quidem assumenda? Voluptatum eius id temporibus! Quae voluptatum voluptate, reiciendis ipsam culpa doloremque adipisci incidunt, esse, dolores fuga inventore. Distinctio ut recusandae labore reprehenderit.</p>
+            </div>
+        </div>
     </div>
 </div>
     <footer id="footer">

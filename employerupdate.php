@@ -3,7 +3,7 @@ $cname = $industry = $contact_no = $location = $terms='';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['cname']) && !empty($_POST['cname']) && trim($_POST['cname'])) {
         $cname = $_POST['cname'];
-        if (!preg_match('/^[a-zA-Z\s]{2,50}$/', $cname)) {
+        if (!preg_match('/^[a-zA-Z\s]{3,50}$/', $cname)) {
             $errors['cname'] = 'Enter valid company name';
         }
     } else {
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['contact_no']) && !empty($_POST['contact_no']) && trim($_POST['contact_no'])) {
         $contact_no = $_POST['contact_no'];
-        if (!preg_match('/^[0-9]{7}$/', $contact_no)) {
+        if (!preg_match('/^[0-9]{10}$/', $contact_no)) {
             $errors['contact_no'] = 'Enter valid contact number';
         }
     } else {
@@ -41,13 +41,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $terms =$_POST['terms'];
     try{
         require_once 'connection.php';
-        $sql = "INSERT INTO employer(cname, industry,contact_no, location, terms) values('$cname', '$industry', '$contact_no ','$location', '$terms')";
+        $sql = "Update * from employer where c_id =$c_id";
         $connection->query($sql);
-        echo "Data inserted successfully";
+        echo "Employer updated successfully";
     }catch(Exception $ex){
         die('Error: ' . $ex->getMessage());
     }
 }
+?>
+<?php
+$c_id = $_GET['c_id'];
+    try{
+        require_once 'connection.php';
+        $sql = "select * from employer where c_id =$c_id";
+        $result = $connection->query($sql);
+        if ($result->num_rows == 1) {
+            $record = $result->fetch_assoc();
+        }
+        else{
+            die ('Data not found');
+        }
+    }
+    catch (Exception $ex){
+        die('Error: '. $ex->getMessage());
+    }
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                <span> <?php echo isset($errors['terms']) ? $errors['terms'] : '' ?></span><br>
             </div>
             <div class="button">
-                <button type="submit">Register</button>
+                <button type="submit">Update</button>
                 </a>
             </div>
         </form>

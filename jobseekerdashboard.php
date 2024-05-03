@@ -36,7 +36,7 @@
                  <hr>
                 <div class="dropdownlist">
                 
-                 <a href="#" class="sub-menu-links"><img src="Images/exit.png"><p>Logout</p> </a>
+                 <a href="logout.php" class="sub-menu-links"><img src="Images/exit.png"><p>Logout</p> </a>
                <a href="#" class="sub-menu-links"> <img src="Images/help.png"><p>Help</p></a>
                <a href="profile.php" class="sub-menu-links"><img src="Images/edit-info.png"><p> Profile</p onclick="window.location.href='profile.php'"></a>
                 

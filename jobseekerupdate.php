@@ -38,21 +38,52 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $err['cv'] = 'Select file';
     }
 
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $dob = $_POST['dob'];
-    $mobno = $_POST['mobno'];
-    $address = $_POST['address'];
-    $cv = $_POST['cv'];
+   $fname = $_POST['fname'];
+$lname = $_POST['lname'];
+$dob = $_POST['dob'];
+$mobno = $_POST['mobno'];
+$address = $_POST['address'];
+$cv = $_POST['cv'];
+try {
+    require_once 'connection.php';
+    // Prepare the SQL statement with placeholders
+    $sql = "UPDATE jobseeker SET fname=?, lname=?, dob=?, mobno=?, address=?, cv=? WHERE p_id=?";
+    $stmt = $connection->prepare($sql);
+
+    // Bind parameters
+    $stmt->bind_param("ssssssi", $fname, $lname, $dob, $mobno, $address, $cv, $p_id);
+
+    // Execute the query
+    $stmt->execute();
+
+    // Check if any rows were affected
+    if ($stmt->affected_rows > 0) {
+        echo "Jobseeker updated successfully";
+    } else {
+        echo "No changes made";
+    }
+} catch (Exception $ex) {
+    die('Error: ' . $ex->getMessage());
+}
+
+}
+?>
+<?php
+$p_id = $_GET['id'];
     try{
         require_once 'connection.php';
-        $sql = "INSERT INTO jobseeker(fname,lname,dob,mobno,address,cv) values('$fname','$lname','$dob',$mobno,'$address','$cv')";
-        $connection->query($sql);
-        echo "Data inserted successfully";
-    }catch(Exception $ex){
-        die('Error: ' . $ex->getMessage());
+        $sql = "select * from jobseeker where p_id =$p_id";
+        $result = $connection->query($sql);
+        if ($result->num_rows == 1) {
+            $record = $result->fetch_assoc();
+        }
+        else{
+            die ('Data not found');
+        }
     }
-}
+    catch (Exception $ex){
+        die('Error: '. $ex->getMessage());
+    }
 ?>
 
 <!DOCTYPE html>
@@ -79,36 +110,36 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             <p>Register with basic information, complete your profile and start applying for jobs for free.</p>
             <div class="field-group">
                 <label for="fname"><b>First Name:</b></label>
-                <input type="text" name="fname">
+                <input type="text" name="fname" value="<?php echo $record['fname']?>">
                 <span><?php echo isset($err['fname'])?$err['fname']:''; ?></span>
             </div>
             <div class="field-group">
                 <label for="lname"><b>Last Name:</b></label>
-                <input type="text" name="lname">
+                <input type="text" name="lname" value="<?php echo $record['lname']?>">
                 <span><?php echo isset($err['lname'])?$err['lname']:''; ?></span>
             </div>
             <div class="field-group">
                 <label for="dob"><b>Date of Birth:</b></label>
-                <input type="dob" name="dob">
+                <input type="dob" name="dob" value="<?php echo $record['dob']?>">
                 <span><?php echo isset($err['dob'])?$err['dob']:''; ?></span>
             </div>
             <div class="field-group">
                 <label for="mobno"><b>Mobile Number:</b></label>
-                <input type="number" name="mobno">
+                <input type="number" name="mobno" value="<?php echo $record['mobno']?>">
                 <span><?php echo isset($err['mobno'])?$err['mobno']:''; ?></span>
             </div>
             <div class="field-group">
                 <label for="address"><b>Address:</b></label>
-                <input type="address" name="address">
+                <input type="address" name="address" value="<?php echo $record['address']?>">
                 <span><?php echo isset($err['address'])?$err['address']:''; ?></span>
             </div>
             <div>
                 <label for="cv"><b>CV:</b></label>
-                <input type="file" name="cv">
+                <input type="file" name="cv" value="<?php echo $record['cv']?>">
                 <span><?php echo isset($err['cv'])?$err['cv']:''; ?></span>
             </div>
             <div class="btn-group">
-            <button type="login" name="register">Register</button>
+            <button type="login" name="register">Update</button>
                
             </div>
         </form>
