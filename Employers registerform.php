@@ -1,13 +1,35 @@
 <?php
-$cname = $industry = $contact_no = $location = $terms='';
+require_once 'connection.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$c_name = $c_email = $password = $c_location = $contact_no = $industry = $terms = '';
+$errors = [];
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['cname']) && !empty($_POST['cname']) && trim($_POST['cname'])) {
-        $cname = $_POST['cname'];
-        if (!preg_match('/^[a-zA-Z\s]{2,50}$/', $cname)) {
-            $errors['cname'] = 'Enter valid company name';
+    if (isset($_POST['c_name']) && !empty($_POST['c_name']) && trim($_POST['c_name'])) {
+        $c_name = $_POST['c_name'];
+        if (!preg_match('/^[a-zA-Z\s]{2,50}$/', $c_name)) {
+            $errors['c_name'] = 'Enter valid company name';
         }
     } else {
-        $errors['cname'] = 'Enter company name';
+        $errors['c_name'] = 'Enter company name';
+    }
+
+    if (isset($_POST['c_email']) && !empty($_POST['c_email']) && trim($_POST['c_email'])) {
+        $c_email = $_POST['c_email'];
+    } else {
+        $errors['c_email'] = 'Enter your email';
+    }
+
+    if (isset($_POST['password']) && !empty($_POST['password']) && trim($_POST['password'])) {
+        $password = $_POST['password'];
+        // Password validation
+        if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{6,}$/', $password)) {
+            $errors['password'] = 'Password must be at least 6 characters with at least one uppercase letter and one number';
+        }
+    } else {
+        $errors['password'] = 'Enter a password';
     }
 
     if (isset($_POST['industry']) && !empty($_POST['industry'])) {
@@ -18,34 +40,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['contact_no']) && !empty($_POST['contact_no']) && trim($_POST['contact_no'])) {
         $contact_no = $_POST['contact_no'];
-        if (!preg_match('/^[0-9]{7}$/', $contact_no)) {
+        if (!preg_match('/^[0-9]{10}$/', $contact_no)) {
             $errors['contact_no'] = 'Enter valid contact number';
         }
     } else {
         $errors['contact_no'] = 'Enter contact number';
     }
 
-    if (isset($_POST['location']) && !empty($_POST['location']) && trim($_POST['location'])) {
-        $location = $_POST['location'];
+    if (isset($_POST['c_location']) && !empty($_POST['c_location']) && trim($_POST['c_location'])) {
+        $c_location = $_POST['c_location'];
     } else {
-        $errors['location'] = 'Enter company location';
-    }
-    if (!isset($_POST['terms'])) {
-        $errors['terms'] = 'You must agree to the terms and conditions';
+        $errors['c_location'] = 'Enter company location';
     }
 
-    $cname = $_POST['cname'];
-    $industry = $_POST['industry'];
-    $contact_no = $_POST['contact_no'];
-    $location = $_POST['location'];
-    $terms =$_POST['terms'];
-    try{
-        require_once 'connection.php';
-        $sql = "INSERT INTO employer(cname, industry,contact_no, location, terms) values('$cname', '$industry', '$contact_no ','$location', '$terms')";
-        $connection->query($sql);
-        echo "Data inserted successfully";
-    }catch(Exception $ex){
-        die('Error: ' . $ex->getMessage());
+    if (!isset($_POST['terms'])) {
+        $errors['terms'] = 'You must agree to the terms and conditions';
+    } else {
+        $terms = $_POST['terms'];
+    }
+
+    if (empty($errors)) {
+        $sql = "INSERT INTO company (c_name, c_email, password, c_location, contact_no, industry) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('ssssss', $c_name, $c_email, $password, $c_location, $contact_no, $industry);
+
+        if ($stmt->execute()) {
+            $_SESSION['c_email'] = $c_email;
+            echo "Registration successful";
+            header('Location: login.php');
+            exit();
+        } else {
+            echo 'Error: ' . $stmt->error;
+        }
     }
 }
 ?>
@@ -66,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="header">
         <nav>
             <div class="logo">
-            <h2 onclick="window.location.href='index.php'">Job Portal</h2>
+                <h2 onclick="window.location.href='index.php'">Job Portal</h2>
             </div>
             <div class="member">
                 <p> Are you Already a member?
@@ -75,14 +101,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </nav>
     </div>
     <div class="container_1">
-
-        <form action=" " method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <h3>Registration Form</h3>
 
             <div class="inputbox">
-                <label for="cname">Company Name:</label> 
-                <span><?php echo isset($errors['cname']) ? $errors['cname'] : '' ?></span><br>
-                <input type="text" id="cname" name="cname" value="<?php echo $cname ?>" placeholder="Enter company name"><br>
+                <label for="c_name">Company Name:</label> 
+                <span><?php echo isset($errors['c_name']) ? $errors['c_name'] : '' ?></span><br>
+                <input type="text" id="c_name" name="c_name" value="<?php echo htmlspecialchars($c_name) ?>" placeholder="Enter company name"><br>
+
+                <label for="c_email">Email:</label>
+                <span><?php echo isset($errors['c_email']) ? $errors['c_email'] : '' ?></span><br>
+                <input type="text" id="c_email" name="c_email" value="<?php echo htmlspecialchars($c_email) ?>" placeholder="Enter email"><br>
+
+                <label for="password">Password:</label>
+                <span><?php echo isset($errors['password']) ? $errors['password'] : '' ?></span><br>
+                <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($password) ?>" placeholder="Enter password"><br>
+
+                <label for="c_location">Company Location:</label>
+                <span><?php echo isset($errors['c_location']) ? $errors['c_location'] : '' ?></span><br>
+                <input type="text" id="c_location" name="c_location" value="<?php echo htmlspecialchars($c_location) ?>" placeholder="Enter company location"><br>
+
+                <label for="contact_no">Company Contact No:</label>
+                <span><?php echo isset($errors['contact_no']) ? $errors['contact_no'] : '' ?></span><br>
+                <input type="text" id="contact_no" name="contact_no" value="<?php echo htmlspecialchars($contact_no) ?>" placeholder="Enter contact number"><br>
 
                 <label for="industry">Company Industry:</label>
                 <span><?php echo isset($errors['industry']) ? $errors['industry'] : '' ?></span><br>
@@ -92,24 +133,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <option value="finance" <?php echo ($industry == 'finance') ? 'selected' : '' ?>>Finance</option>
                     <option value="manufacturing" <?php echo ($industry == 'manufacturing') ? 'selected' : '' ?>>Manufacturing</option>
                 </select><br>
-
-                <label for="contact_no">Company Contact No:</label>
-                <span><?php echo isset($errors['contact_no']) ? $errors['contact_no'] : '' ?></span><br>
-                <input type="text" id="contact_no" name="contact_no" value="<?php echo $contact_no ?>" placeholder="Enter contact number"><br>
-
-                <label for="location">Company Location:</label>
-               <span> <?php echo isset($errors['location']) ? $errors['location'] : '' ?></span><br>
-                <input type="text" id="location" name="location" value="<?php echo $location ?>" placeholder="Enter company location"><br>
-
             </div>
+
             <div class="term">
-                <input type="checkbox" id="terms" name="terms">
+                <input type="checkbox" id="terms" name="terms" <?php echo isset($terms) ? 'checked' : '' ?>>
                 <label for="terms">I agree to the terms and conditions.</label>
-               <span> <?php echo isset($errors['terms']) ? $errors['terms'] : '' ?></span><br>
+                <span><?php echo isset($errors['terms']) ? $errors['terms'] : '' ?></span><br>
             </div>
+
             <div class="button">
                 <button type="submit">Register</button>
-                </a>
             </div>
         </form>
     </div>

@@ -63,23 +63,26 @@
                 });
             });
             </script>
-            <!-- <ul>
+            <ul class="dropdown-container">
               <li class="dropdown">
                   <a href="#" class="dropbtn">Jobseeker</a>
                   <div class="dropdown-content">
-                      <a href="#">Option 1</a>
-                      <a href="#">Option 2</a>
+                      <a href="jobseekerlogin.php">Login</a>
+                      <a href="jobseekerregister.php">Register</a>
                   </div>
               </li>
+          </ul>
+          <ul class="dropdown-container">
               <li class="dropdown">
                   <a href="#" class="dropbtn">Employer</a>
                   <div class="dropdown-content">
-                      <a href="#">Option 1</a>
-                      <a href="#">Option 2</a>
+                      <a href="c_login.php">Login</a>
+                      <a href="Employers registerform.php">Register</a>
                   </div>
               </li>
-          </ul> -->
-            <div class="main-nav">
+          </ul>
+
+            <!-- <div class="main-nav">
             <span class="toggle-menu" id="toggleMenu">
                         <span></span>
                         <span></span>
@@ -89,14 +92,11 @@
                 <li><button class="dropdown-btn" onclick="window.location.href='login.php'">Login </button></li>
                 <li><button class="dropdown-btn" onclick="window.location.href='user.php'">Register </button></li>
               </ul>
-            </div>
+            </div> -->
         </nav>
         <div class="banner">
             <div class="text_1"><h1><span>Connecting</span> dreams </br> <span>with </span>opportunities</h1></br></br>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </p> <br>
-            <button class="button3">Get Started.</button>
+            <button class="button3" onclick="window.location.href='user.php'">Get Started</button>
             </div>
             <img src="Images/Untitled design (3).png" width=auto;>
           </div>
@@ -172,7 +172,7 @@
         <div class="job_list">
 <?php
 $connection = new mysqli('localhost', 'root', '', 'jobportal');
-$sql = "SELECT id, jobTitle, jobLocation, jobType FROM jobs";
+$sql = "SELECT jobTitle, jobLocation, jobType FROM job";
 $result = $connection->query($sql); // Execute the SQL query
 $jobs = [];
 if ($result->num_rows > 0) {
@@ -182,7 +182,7 @@ if ($result->num_rows > 0) {
 <div class="job_details">
     <div class="company-logo"><a href="#"><img src="Images/pathao.png" width="50px"></a></div>
     <div class="inner">
-        <p>Lorem, ipsum dolor.</p>
+        <p><?php echo $fetch_job['']; ?></p>
         <h3><?php echo $fetch_job['jobTitle']; ?></h3>
         <i class="fa-solid fa-location-dot"></i><span><?php echo $fetch_job['jobLocation']; ?></span>
         <i class="fa-solid fa-business-time"></i><span><?php echo $fetch_job['jobType']; ?></span>
@@ -204,9 +204,9 @@ if ($result->num_rows > 0) {
         <div class="logo">
           <h2>Job Portal</h2>
           </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
+          <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
               <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, molestias!
-          </p>
+          </p> -->
           <div class="socail-links">
               <i class="fa-brands fa-twitter"></i>
               <i class="fa-brands fa-facebook-f"></i>

@@ -1,56 +1,78 @@
 <?php
-$fname = $lname = $dob = $mobno = $address = $cv = '';
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if(isset ($_POST['fname']) && !empty($_POST['fname']) && trim($_POST['fname'])){
-        $fname = $_POST['fname'];
-    }
-    else{
-        $err['fname'] = 'Enter First Name';
-    }
-    if (isset ($_POST['lname']) &&!empty($_POST['lname']) && trim($_POST['lname'])) {
-        $lname = $_POST['lname'];
-    }
-    else{
-        $err['lname'] = 'Enter Last Name';
-    }
-    if (isset ($_POST['dob']) &&!empty($_POST['dob']) && trim($_POST['dob'])) {
-        $dob = $_POST['dob'];
-    }
-    else{
-        $err['dob'] = 'Enter Date of birth';
-    }
-    if (isset ($_POST['mobno']) &&!empty($_POST['mobno']) && trim($_POST['mobno'])) {
-        $mobno = $_POST['mobno'];
-    }
-    else{
-        $err['mobno'] = 'Enter Mobile number';
-    }
-    if (isset ($_POST['address']) &&!empty($_POST['address']) && trim($_POST['address'])) {
-        $address = $_POST['address'];
-    }
-    else{
-        $err['address'] = 'Enter Address';
-    }
-    if (isset ($_POST['cv']) &&!empty($_POST['cv']) && trim($_POST['cv'])) {
-        $cv = $_POST['cv'];
-    }
-    else{
-        $err['cv'] = 'Select file';
+require_once 'connection.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$errors = [];
+$jobseeker_name = $dob = $mobno = $address = $jobseeker_email = $password = $confirm_password = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['jobseeker_name']) && !empty($_POST['jobseeker_name']) && trim($_POST['jobseeker_name'])) {
+        $jobseeker_name = $_POST['jobseeker_name'];
+    } else {
+        $errors['jobseeker_name'] = 'Enter your name';
     }
 
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $dob = $_POST['dob'];
-    $mobno = $_POST['mobno'];
-    $address = $_POST['address'];
-    $cv = $_POST['cv'];
-    try{
-        require_once 'connection.php';
-        $sql = "INSERT INTO jobseeker(fname,lname,dob,mobno,address,cv) values('$fname','$lname','$dob',$mobno,'$address','$cv')";
-        $connection->query($sql);
-        echo "Data inserted successfully";
-    }catch(Exception $ex){
-        die('Error: ' . $ex->getMessage());
+    if (isset($_POST['dob']) && !empty($_POST['dob'])  && trim($_POST['dob']) ) {
+        $dob = $_POST['dob'];
+    } else {
+        $errors['dob'] = 'Enter your date of birth';
+    }
+
+    if (isset($_POST['mobno']) && !empty($_POST['mobno'])  && trim($_POST['mobno'])) {
+        $mobno = $_POST['mobno'];
+    } else {
+        $errors['mobno'] = 'Enter your mobile number';
+    }
+
+    if (isset($_POST['address']) && !empty($_POST['address'])  && trim($_POST['address'])) {
+        $address = $_POST['address'];
+    } else {
+        $errors['address'] = 'Enter your address';
+    }
+
+    if (isset($_POST['jobseeker_email']) && !empty($_POST['jobseeker_email'])  && trim($_POST['jobseeker_email'])) {
+        $jobseeker_email = $_POST['jobseeker_email'];
+    } else {
+        $errors['jobseeker_email'] = 'Enter your email';
+    }
+
+    if (isset($_POST['password']) && !empty($_POST['password'])  && trim($_POST['password'])) {
+        $password = $_POST['password'];
+        // Password validation
+        if (!preg_match('/^(?=.*[A-Z])(?=.*\d).{8,}$/', $password)) {
+            $errors['password'] = 'Password must be at least 8 characters with at least one uppercase letter and one number';
+        }
+    } else {
+        $errors['password'] = 'Enter a password';
+    }
+
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])  && trim($_POST['confirm_password'])) {
+        $confirm_password = $_POST['confirm_password'];
+        if ($password !== $confirm_password) {
+            $errors['confirm_password'] = 'Passwords do not match';
+        }
+    } else {
+        $errors['confirm_password'] = 'Confirm your password';
+    }
+
+    if (!isset($_POST['terms'])) {
+        $errors['terms'] = 'You must agree to the terms and conditions';
+    }
+
+    if (empty($errors)) {
+        $sql = "INSERT INTO jobseeker (jobseeker_name, dob, mobno, address, jobseeker_email, password) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('ssssss', $jobseeker_name, $dob, $mobno, $address, $jobseeker_email, $password);
+
+        if ($stmt->execute()) {
+            $_SESSION['jobseeker_email'] = $jobseeker_email; 
+            echo "Registration successful";
+            header('Location: extrainfo.php');
+            exit();
+        } else {
+            echo 'Error: ' . $stmt->error;
+        }
     }
 }
 ?>
@@ -60,81 +82,45 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>register</title>
-    <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+    <title>Jobseeker Registration</title>
 </head>
 <body>
-    <div class="header">
-        <nav>
-            <div class="logo">
-            <h2> Job Portal </h2>
-            </div>
-        </nav>
-    </div>
-        <section class="form-box">
-        <form action="" method="post" name="login_form">
-            <h3>Create your free job seeker account</h3>
-            <p>Register with basic information, complete your profile and start applying for jobs for free.</p>
-            <div class="field-group">
-                <label for="fname"><b>First Name:</b></label>
-                <input type="text" name="fname">
-                <span><?php echo isset($err['fname'])?$err['fname']:''; ?></span>
-            </div>
-            <div class="field-group">
-                <label for="lname"><b>Last Name:</b></label>
-                <input type="text" name="lname">
-                <span><?php echo isset($err['lname'])?$err['lname']:''; ?></span>
-            </div>
-            <div class="field-group">
-                <label for="dob"><b>Date of Birth:</b></label>
-                <input type="dob" name="dob">
-                <span><?php echo isset($err['dob'])?$err['dob']:''; ?></span>
-            </div>
-            <div class="field-group">
-                <label for="mobno"><b>Mobile Number:</b></label>
-                <input type="number" name="mobno">
-                <span><?php echo isset($err['mobno'])?$err['mobno']:''; ?></span>
-            </div>
-            <div class="field-group">
-                <label for="address"><b>Address:</b></label>
-                <input type="address" name="address">
-                <span><?php echo isset($err['address'])?$err['address']:''; ?></span>
-            </div>
-            <div>
-                <label for="cv"><b>CV:</b></label>
-                <input type="file" name="cv">
-                <span><?php echo isset($err['cv'])?$err['cv']:''; ?></span>
-            </div>
-            <div class="btn-group">
-            <button type="login" name="register">Register</button>
-               
-            </div>
+    <div class="container">
+        <form action=" " method="post">
+            <label for="jobseeker_name">Name:</label>
+            <span><?php echo isset($errors['jobseeker_name']) ? $errors['jobseeker_name'] : ''; ?></span><br>
+            <input type="text" id="jobseeker_name" name="jobseeker_name" value="<?php echo htmlspecialchars($jobseeker_name); ?>" placeholder="Enter your name"><br>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($dob); ?>"><br>
+
+            <label for="mobno">Mobile Number:</label>
+            <span><?php echo isset($errors['mobno']) ? $errors['mobno'] : ''; ?></span><br>
+            <input type="text" id="mobno" name="mobno" value="<?php echo htmlspecialchars($mobno); ?>" placeholder="Enter mobile number"><br>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>" placeholder="Enter your address"><br>
+
+            <label for="jobseeker_email">Email:</label>
+            <span><?php echo isset($errors['jobseeker_email']) ? $errors['jobseeker_email'] : ''; ?></span><br>
+            <input type="text" id="jobseeker_email" name="jobseeker_email" value="<?php echo htmlspecialchars($jobseeker_email); ?>" placeholder="Enter your email"><br>
+
+            <label for="password">Password:</label>
+            <span><?php echo isset($errors['password']) ? $errors['password'] : ''; ?></span><br>
+            <input type="password" id="password" name="password"><br>
+
+            <label for="confirm_password">Confirm Password:</label>
+            <span><?php echo isset($errors['confirm_password']) ? $errors['confirm_password'] : ''; ?></span><br>
+            <input type="password" id="confirm_password" name="confirm_password"><br>
+
+            <input type="checkbox" id="terms" name="terms">
+            <label for="terms">I agree to the terms and conditions.</label>
+            <span><?php echo isset($errors['terms']) ? $errors['terms'] : ''; ?></span><br>
+
+            <button type="submit">Register</button>
         </form>
-    </section>
-    <footer id="footer">
-        <div class="footer-content">
-          <div class="logo">
-            <h2>Job Portal</h2>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
-                <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, molestias!
-            </p>
-            <div class="socail-links">
-                <i class="fa-brands fa-twitter"></i>
-                <i class="fa-brands fa-facebook-f"></i>
-                <i class="fa-brands fa-instagram"></i>
-                <i class="fa-brands fa-youtube"></i>
-                <i class="fa-brands fa-pinterest-p"></i>
-            </div>
-        </div>
-        <div class="footer-bottom-content">
-            <p>Designed By Job Portal teams</p>
-            <div class="copyright">
-                <p>&copy;Copyright <strong>Job portal</strong>.All Rights Reserved</p>
-            </div>
-        </div>
-    </footer>
+    </div>
 </body>
 </html>

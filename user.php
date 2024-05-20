@@ -1,7 +1,7 @@
 <?php
     $email = $password =$user_type ='';
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        if (isset ($_POST['email']) &&!empty($_POST['email']) && trim($_POST['email'])) {
+        if (isset ($_POST['email']) &&!empty($_POST['email']) && trim($_POST['email'])&& filter_var($_POST['email'],FILTER_VALIDATE_EMAIL)) {
             $email = $_POST['email'];
         }
         else{
@@ -86,7 +86,7 @@
                 <label for="user_type"><b>User Type:</b> </label>
                 <select name="user_type" id="user_type">
                     <option value="jobseeker">Jobseeker</option>
-                    <option value="employer">Employer</option>
+                    <option value="company">Company</option>
                 </select>
                 <span><?php echo isset($err['user_type'])?$err['user_type']:''; ?></span>
             </div>

@@ -24,29 +24,32 @@ try{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jobseeker</title>
+    <link rel="stylesheet" href="admindashboard.css">
 </head>
 <body>
 <h3>List of jobseeker</h3>
-    <table>
-        <tr>
-            <th>P_id</th>
-            <th>Name</th>
-            <th>Applied Jobs</th>
-            <th>Address</th>
-            <th>Action</th>
-        </tr>
-        <?php foreach ($jobseekers as $key => $jobseeker) { ?>
+    <div class="section">
+        <table>
             <tr>
-                <td><?php echo $jobseeker['p_id'] ?></td>
-                <td><?php echo $jobseeker['fname'] . ' ' . $jobseeker['lname']; ?></td>
-                <td>2</td>
-                <td><?php echo $jobseeker['address'] ?></td>
-                <td>
-                <a onclick="return confirm('Are you sure to update?')" href="jobseekerupdate.php?id=<?php echo $jobseeker['p_id'] ?>">Update</a>
-                <a onclick="return confirm('Are you sure to delete?')" href="delete.php?p_id=<?php echo $jobseeker['p_id'] ?>">Delete</a>
-                </td>
+                <th>P_id</th>
+                <th>Name</th>
+                <th>Applied Jobs</th>
+                <th>Address</th>
+                <th>Action</th>
             </tr>
-        <?php } ?>
-    </table>
+            <?php foreach ($jobseekers as $key => $jobseeker) { ?>
+                <tr>
+                    <td><?php echo $jobseeker['p_id'] ?></td>
+                    <td><?php echo $jobseeker['fname'] . ' ' . $jobseeker['lname']; ?></td>
+                    <td>2</td>
+                    <td><?php echo $jobseeker['address'] ?></td>
+                    <td>
+                    <a onclick="return confirm('Are you sure to update?')" href="jobseekerupdate.php?id=<?php echo $jobseeker['p_id'] ?>">Update</a>
+                    <a onclick="return confirm('Are you sure to delete?')" href="delete.php?p_id=<?php echo $jobseeker['p_id'] ?>">Delete</a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
 </body>
 </html>

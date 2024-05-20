@@ -74,7 +74,7 @@ if (isset($_POST['btnLogin'])) {
         </div>
     <section class="form-box">
         <form action="<?php echo $_SERVER['PHP_SELF']?>" method="post" name="login_form">
-            <h3>LOGIN</h3>
+            <h3>ADMIN LOGIN</h3>
             <div class="field-group">
                 <label for="username"><b>Username:</b></label>
                 <input type="text" id="username" name="username">
@@ -95,9 +95,9 @@ if (isset($_POST['btnLogin'])) {
           <div class="logo">
             <h2>Job Portal</h2>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
                 <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, molestias!
-            </p>
+            </p> -->
             <div class="socail-links">
                 <i class="fa-brands fa-twitter"></i>
                 <i class="fa-brands fa-facebook-f"></i>

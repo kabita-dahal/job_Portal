@@ -1,3 +1,37 @@
+<?php 
+session_start();
+
+if (!isset($_SESSION['email'])) {
+    die("Access denied.");
+}
+
+$c_email = $_SESSION['email'];
+$mysqli = new mysqli("localhost", "root", "", "jobportal");
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+$stmt = $mysqli->prepare("SELECT c_name, c_location, contact_no, industry FROM company WHERE c_email = ?");
+$stmt->bind_param("s", $c_email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    // $j_image = $row['j_image'];
+    $c_name = $row['c_name'];
+    $c_location = $row['c_location'];
+    $contact_no = $row['contact_no'];
+    $industry = $row['industry'];
+    // $dob = $row['dob'];
+    // $description = $row['description'];
+} else {
+    die("No company found with the given email.");
+}
+$stmt->close();
+$mysqli->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,6 +125,66 @@
     .nav-links a:last-child {
         margin-right: 0;
     }
+    .dropdown {
+    position: absolute;
+    top: 73px; 
+    right: 10px;
+    background-color: #fdfdfd;
+    width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 10px;
+}
+.dropdown::before{
+    content: '';
+    position: absolute;
+    top: -18px;
+    right: 28px;
+    border: 10px solid;
+    border-color: transparent transparent #f4f2f2 transparent;
+}
+.dropdown .user-info{
+    display: flex;
+    align-items: center;
+}
+.dropdown .user-info img{
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 1.5px solid #338573;
+        margin-right: 8px;
+}
+.dropdown .dropdownlist img{
+width: 15px;
+height: 15px;
+background: #e5e5e5;
+border-radius: 35%;
+padding: 5px;
+margin-right: 15px;
+}
+.dropdown hr{
+    border: 0;
+    width: 100%;
+    height: 1px;
+    margin: 10px 0 5px;
+    background: #ccc;
+}
+.dropdown .dropdownlist .sub-menu-links{
+    display: flex;
+    align-items: center;
+    color: #525252;
+    margin: 12px 0;
+}
+.dropdown .dropdownlist .sub-menu-links p{
+width: 100%;
+}
+.dropdownlist :hover p{
+font-weight: 600;
+transition: transform 0.5s;
+transform: translateY(-0.4px);
+}
 </style>
 </head>
 <body>

@@ -123,10 +123,10 @@
                     <ul>
                         <li>Collaborate with the development team to create high-quality software solutions</li>
                         <li>Participate in code reviews and provide constructive feedback</li>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-                        <li>Lorem ipsum dolor sit amet consectetur adipisicing.</li>
+                        <li>Contribute to technical design and architecture</li>
+                        <li>Troubleshoot and debug software issues</li>
+                        <li>Collaborate with cross-functional teams</li>
+                        <li>Provide technical support and mentorship</li>
                     </ul>
                 </div>
             </div>
@@ -152,9 +152,9 @@
             <div class="logo">
                 <h2>Job Portal</h2>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
                 <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, molestias!
-            </p>
+            </p> -->
             <div class="socail-links">
                 <i class="fa-brands fa-twitter"></i>
                 <i class="fa-brands fa-facebook-f"></i>

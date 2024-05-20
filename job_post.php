@@ -1,5 +1,11 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$email = $_SESSION['email'];
 $jobTitle = $postedby = $jobCategory = $jobType = $jobLocation = $salaryRange = $experienceLevel = $applicationDeadline = $qualification = $jobDescription = $jobrequirement = '';
+$errors = [];
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['jobTitle']) && !empty($_POST['jobTitle']) && trim($_POST['jobTitle'])) {
         $jobTitle = $_POST['jobTitle'];
@@ -67,35 +73,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     if (isset($_POST['jobrequirement']) && !empty($_POST['jobrequirement']) && trim($_POST['jobrequirement'])) {
-        $jobrequirement = explode("\n", $_POST['jobrequirement']);
-        // Convert the array back to a string
-       //$jobrequirement = implode(", ", $jobrequirement);
+        $jobrequirement = implode(", ", array_filter(array_map('trim', explode("\n", $_POST['jobrequirement']))));
     } else {
-        $errors['jobrequirement'] = 'Enter job Requirement';
+        $errors['jobrequirement'] = 'Enter job requirement';
     }
 }
-    
-    // ... rest of your code ...
-    
-    if(empty($errors)){
-        try {
-            $connection = new mysqli('localhost', 'root', '', 'jobportal'); 
-            // Use prepared statements to prevent SQL injection
-            $stmt = $connection->prepare("INSERT INTO jobs (jobTitle, postedby, jobCategory, jobType, jobLocation, salaryRange, experienceLevel, applicationDeadline, qualification, jobDescription, jobrequirement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssssssss", $jobTitle, $postedby, $jobCategory, $jobType, $jobLocation, $salaryRange, $experienceLevel, $applicationDeadline, $qualification, $jobDescription, $jobrequirement);
-            
-            // if ($stmt->execute()) {
-            //     echo "Job posted successfully";
-            // } else {
-            //     echo "Error: " . $stmt->error;
-            // }
-        } catch (Exception $ex) {
-            die('Error: ' . $ex->getMessage());
-        }
-    }
-    
 
+if (empty($errors)) {
+    try {
+        $connection = new mysqli('localhost', 'root', '', 'jobportal');
+        if ($connection->connect_error) {
+            die('Connection failed: ' . $connection->connect_error);
+        }
+        $stmt = $connection->prepare("INSERT INTO job (jobTitle, jobCategory, jobType, jobLocation, salaryRange, experienceLevel, applicationDeadline, qualification, jobDescription, jobrequirement, c_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssssss", $jobTitle, $jobCategory, $jobType, $jobLocation, $salaryRange, $experienceLevel, $applicationDeadline, $qualification, $jobDescription, $jobrequirement, $email);
+
+        if ($stmt->execute()) {
+            echo "Job posted successfully";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+        $connection->close();
+    } catch (Exception $ex) {
+        die('Error: ' . $ex->getMessage());
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,27 +109,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="Jobpost.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <title>Job Post</title>
 </head>
-
 <body>
-   
-
     <div class="Job_post_container">
         <form action="" method="post" name="jobpost">
             <h3>Post a job</h3>
-
             <div class="box_1">
-            <div class="jobtitle">
-            <label for="jobTitle">Job Title:</label>
-            <span><?php echo isset($errors['jobTitle']) ? $errors['jobTitle'] : '' ?></span><br>
-            <input type="text" id="jobTitle" name="jobTitle" value="<?php echo $jobTitle ?>" placeholder="Enter Job Title"><br>
-            </div>
-
-            <div class="postedby"><label for="postedby">Posted By:</label>
-            <span><?php echo isset($errors['postedby']) ? $errors['postedby'] : '' ?></span><br>
-            <input type="text" id="postedby" name="postedby" value="<?php echo $postedby ?>" placeholder="Enter Your Name"><br></div>
+                <div class="jobtitle">
+                    <label for="jobTitle">Job Title:</label>
+                    <span><?php echo isset($errors['jobTitle']) ? $errors['jobTitle'] : '' ?></span><br>
+                    <input type="text" id="jobTitle" name="jobTitle" value="<?php echo $jobTitle ?>" placeholder="Enter Job Title"><br>
+                </div>
+                <div class="postedby">
+                    <label for="postedby">Posted By:</label>
+                    <span><?php echo isset($errors['postedby']) ? $errors['postedby'] : '' ?></span><br>
+                    <input type="text" id="postedby" name="postedby" value="<?php echo $postedby ?>" placeholder="Enter Your Name"><br>
+                </div>
             </div>
             <div class="box_1">
                 <div class="cate_gory">
@@ -181,18 +182,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="jobDescription">Job Description:</label>
             <span><?php echo isset($errors['jobDescription']) ? $errors['jobDescription'] : '' ?></span><br>
             <textarea id="jobDescription" name="jobDescription" placeholder="Enter Job Description" rows="4" cols="50"><?php echo $jobDescription ?></textarea><br>
-             
 
             <label for="jobrequirement">Requirements:</label>
             <span><?php echo isset($errors['jobrequirement']) ? $errors['jobrequirement'] : '' ?></span><br>
-            <textarea id="jobrequirement" name="jobrequirement" placeholder="Enter Job Requirement" rows="4" cols="50"><?php isset($jobrequirement) ? $jobrequirement : ''; ?></textarea><br>
+            <textarea id="jobrequirement" name="jobrequirement" placeholder="Enter Job Requirement" rows="4" cols="50"><?php echo isset($jobrequirement) ? htmlspecialchars($jobrequirement) : ''; ?></textarea><br>
+
             <div class="button_2">
-            <button class="button" onclick="this.innerHTML = 'Posted!!';">
-  Post
+                <button class="button" onclick="this.innerHTML = 'Posted!!';">Post</button>
             </div>
-             
         </form>
     </div>
-    
 </body>
 </html>
