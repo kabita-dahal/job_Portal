@@ -15,6 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['dob']) && !empty($_POST['dob'])  && trim($_POST['dob']) ) {
         $dob = $_POST['dob'];
+        if ($dob == '00-00-0000') {
+            $errors['dob'] = 'Invalid date';
+        }
     } else {
         $errors['dob'] = 'Enter your date of birth';
     }
@@ -87,25 +90,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Jobseeker Registration</title>
 </head>
 <body>
-    <div class="container">
+    <section class="form-box">
         <form action=" " method="post">
-            <label for="jobseeker_name">Name:</label>
-            <span><?php echo isset($errors['jobseeker_name']) ? $errors['jobseeker_name'] : ''; ?></span><br>
-            <input type="text" id="jobseeker_name" name="jobseeker_name" value="<?php echo htmlspecialchars($jobseeker_name); ?>" placeholder="Enter your name"><br>
-
-            <label for="dob">Date of Birth:</label>
-            <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($dob); ?>"><br>
-
-            <label for="mobno">Mobile Number:</label>
-            <span><?php echo isset($errors['mobno']) ? $errors['mobno'] : ''; ?></span><br>
-            <input type="text" id="mobno" name="mobno" value="<?php echo htmlspecialchars($mobno); ?>" placeholder="Enter mobile number"><br>
-
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>" placeholder="Enter your address"><br>
-
-            <label for="jobseeker_email">Email:</label>
-            <span><?php echo isset($errors['jobseeker_email']) ? $errors['jobseeker_email'] : ''; ?></span><br>
-            <input type="text" id="jobseeker_email" name="jobseeker_email" value="<?php echo htmlspecialchars($jobseeker_email); ?>" placeholder="Enter your email"><br>
+        <h3>Jobseeker Registration</h3>
+            <div class="field-group">
+            <label for="jobseeker_name"><b>Name:</b></label>
+                <span><?php echo isset($errors['jobseeker_name']) ? $errors['jobseeker_name'] : ''; ?></span><br>
+                <input type="text" id="jobseeker_name" name="jobseeker_name" value="<?php echo htmlspecialchars($jobseeker_name); ?>" placeholder="Enter your name"><br>
+            </div>
+            <div class="field-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" value="<?php echo htmlspecialchars($dob); ?>"><br>
+            </div>
+                <div class="field-group">
+                <label for="mobno">Mobile Number:</label>
+                <span><?php echo isset($errors['mobno']) ? $errors['mobno'] : ''; ?></span><br>
+                <input type="text" id="mobno" name="mobno" value="<?php echo htmlspecialchars($mobno); ?>" placeholder="Enter mobile number"><br>
+            </div>
+            <div class="field-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" value="<?php echo htmlspecialchars($address); ?>" placeholder="Enter your address"><br>
+            </div>
+            <div class="field-group">
+                <label for="jobseeker_email">Email:</label>
+                <span><?php echo isset($errors['jobseeker_email']) ? $errors['jobseeker_email'] : ''; ?></span><br>
+                <input type="text" id="jobseeker_email" name="jobseeker_email" value="<?php echo htmlspecialchars($jobseeker_email); ?>" placeholder="Enter your email"><br>
+            </div>
 
             <label for="password">Password:</label>
             <span><?php echo isset($errors['password']) ? $errors['password'] : ''; ?></span><br>
@@ -121,6 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <button type="submit">Register</button>
         </form>
-    </div>
+    </section>
 </body>
 </html>

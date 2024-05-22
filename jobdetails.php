@@ -10,10 +10,10 @@
 </head>
 <body>
     <?php
-    if(isset($_GET['id'])) {
-        $job_id = $_GET['id'];
+    if(isset($_GET['job_id'])) {
+        $job_id = $_GET['job_id'];
         $connection = new mysqli('localhost', 'root', '', 'jobportal');
-        $sql = "SELECT id, jobTitle, qualification, experienceLevel, jobLocation, applicationDeadline, salaryRange, jobDescription, jobrequirement FROM jobs WHERE id = $job_id";
+        $sql = "SELECT job_id, jobTitle, qualification, experienceLevel, jobLocation, applicationDeadline, salaryRange, jobDescription, jobrequirement FROM job WHERE id = $job_id";
         $result = $connection->query($sql);
         if ($result->num_rows == 1) {
             $fetch_job = $result->fetch_assoc();

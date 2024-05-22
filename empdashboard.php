@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['email'])) {
-    die("Access denied.");
+    header('location:c_login.php');
 }
 
 $c_email = $_SESSION['email'];

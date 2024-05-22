@@ -56,9 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['applicationDeadline']) && !empty($_POST['applicationDeadline'])) {
         $applicationDeadline = $_POST['applicationDeadline'];
+        if ($applicationDeadline == '00-00-0000') {
+            $errors['applicationDeadline'] = 'Invalid date';
+        }
     } else {
         $errors['applicationDeadline'] = 'Enter deadline';
-    }
+    }    
 
     if (isset($_POST['qualification']) && !empty($_POST['qualification']) && trim($_POST['qualification'])) {
         $qualification = $_POST['qualification'];
@@ -85,11 +88,26 @@ if (empty($errors)) {
         if ($connection->connect_error) {
             die('Connection failed: ' . $connection->connect_error);
         }
-        $stmt = $connection->prepare("INSERT INTO job (jobTitle, jobCategory, jobType, jobLocation, salaryRange, experienceLevel, applicationDeadline, qualification, jobDescription, jobrequirement, c_email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssssssssss", $jobTitle, $jobCategory, $jobType, $jobLocation, $salaryRange, $experienceLevel, $applicationDeadline, $qualification, $jobDescription, $jobrequirement, $email);
 
+        // Prepare and bind the insert statement
+        $stmt = $connection->prepare("INSERT INTO job (jobTitle, jobCategory, jobType, jobLocation, salaryRange, experienceLevel, applicationDeadline, qualification, jobDescription, jobrequirement, c_email, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssssssssss", $jobTitle, $jobCategory, $jobType, $jobLocation, $salaryRange, $experienceLevel, $applicationDeadline, $qualification, $jobDescription, $jobrequirement, $email, $status);
+
+        // Execute the insert statement
         if ($stmt->execute()) {
             echo "Job posted successfully";
+
+            // Update the status of jobs based on their deadlines
+            $updateSql = "UPDATE job
+                          SET status = CASE
+                              WHEN applicationDeadline >= CURDATE() THEN 'active'
+                              ELSE 'expired'
+                          END";
+            if ($connection->query($updateSql) === TRUE) {
+                echo " Status updated successfully.";
+            } else {
+                echo " Error updating status: " . $connection->error;
+            }
         } else {
             echo "Error: " . $stmt->error;
         }

@@ -14,10 +14,10 @@ try{
 }
 }
 
-if(isset($_GET['p_id'])){
+if(isset($_GET['email'])){
 try{
-    $p_id = $_GET['p_id'];
-    $sql = "delete from jobseeker where p_id=$p_id";
+    $jobseeker_email = $_GET['email'];
+    $sql = "delete from jobseeker where jobseeker_email='$jobseeker_email'";
     $connection->query($sql);
     echo "jobseeker deleted successfully";
     header('location:admindashboard.php?page=jobseeker');
@@ -26,11 +26,10 @@ try{
     die('Error: ' . $ex->getMessage());
 }
 }
-
-if(isset($_GET['c_id'])){
+if(isset($_GET['c_email'])){
     try{
-        $c_id = $_GET['c_id'];
-        $sql = "delete from employer where c_id=$c_id";
+        $c_email = $_GET['c_email'];
+        $sql = "delete from company where c_email='$c_email'";
         $connection->query($sql);
         echo "employer deleted successfully";
         header('location:admindashboard.php?page=employer');

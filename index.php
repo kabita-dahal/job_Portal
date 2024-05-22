@@ -172,7 +172,7 @@
         <div class="job_list">
 <?php
 $connection = new mysqli('localhost', 'root', '', 'jobportal');
-$sql = "SELECT jobTitle, jobLocation, jobType FROM job";
+$sql = "SELECT job_id, jobCategory,jobTitle, jobLocation, jobType FROM job";
 $result = $connection->query($sql); // Execute the SQL query
 $jobs = [];
 if ($result->num_rows > 0) {
@@ -182,13 +182,13 @@ if ($result->num_rows > 0) {
 <div class="job_details">
     <div class="company-logo"><a href="#"><img src="Images/pathao.png" width="50px"></a></div>
     <div class="inner">
-        <p><?php echo $fetch_job['']; ?></p>
+        <p><?php echo $fetch_job['jobCategory']; ?></p>
         <h3><?php echo $fetch_job['jobTitle']; ?></h3>
         <i class="fa-solid fa-location-dot"></i><span><?php echo $fetch_job['jobLocation']; ?></span>
         <i class="fa-solid fa-business-time"></i><span><?php echo $fetch_job['jobType']; ?></span>
     </div>
     
-    <a href="jobdetails.php?id=<?php echo $fetch_job['id']; ?>">  <button class="button2">View Details</button></a>    
+    <a href="jobdetails.php?id=<?php echo $fetch_job['job_id']; ?>">  <button class="button2">View Details</button></a>    
 </div>
 <?php
     }

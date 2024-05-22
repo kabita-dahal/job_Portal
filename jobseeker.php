@@ -1,8 +1,8 @@
 <?php
-// error_reporting(0);
+error_reporting(0);
 try{
     require_once 'connection.php';
-    $sql = "select p_id,fname,lname, address, cv from jobseeker ";
+    $sql = "select jobseeker_email, jobseeker_name, address, cv from jobseeker ";
     $result = $connection->query($sql);
     $jobseekers = [];
     if ($result->num_rows > 0) { // mysqli_num_rows()
@@ -31,7 +31,7 @@ try{
     <div class="section">
         <table>
             <tr>
-                <th>P_id</th>
+                <!-- <th>P_id</th> -->
                 <th>Name</th>
                 <th>Applied Jobs</th>
                 <th>Address</th>
@@ -39,13 +39,13 @@ try{
             </tr>
             <?php foreach ($jobseekers as $key => $jobseeker) { ?>
                 <tr>
-                    <td><?php echo $jobseeker['p_id'] ?></td>
-                    <td><?php echo $jobseeker['fname'] . ' ' . $jobseeker['lname']; ?></td>
-                    <td>2</td>
+                    <!-- <td><?php echo $jobseeker['p_id'] ?></td> -->
+                    <td><?php echo $jobseeker['jobseeker_name'] ?></td>
+                    <td>0</td>
                     <td><?php echo $jobseeker['address'] ?></td>
                     <td>
-                    <a onclick="return confirm('Are you sure to update?')" href="jobseekerupdate.php?id=<?php echo $jobseeker['p_id'] ?>">Update</a>
-                    <a onclick="return confirm('Are you sure to delete?')" href="delete.php?p_id=<?php echo $jobseeker['p_id'] ?>">Delete</a>
+                    <a onclick="return confirm('Are you sure to update?')" href="jobseekerupdate.php?email=<?php echo $jobseeker['jobseeker_email'] ?>">Update</a>
+                    <a onclick="return confirm('Are you sure to delete?')" href="delete.php?email=<?php echo $jobseeker['jobseeker_email'] ?>">Delete</a>
                     </td>
                 </tr>
             <?php } ?>

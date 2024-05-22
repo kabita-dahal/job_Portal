@@ -16,16 +16,19 @@ if(!isset($_SESSION['username'])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div class="logo"> 
+        <h2>Job Portal</h2>
+    </div>
     <?php
     $activePage = isset($_GET['page']) ? $_GET['page'] : 'jobseeker';
     ?>
     <div>
-       <input type="checkbox" id="check">
+       <!-- <input type="checkbox" id="check"> -->
         <div class="container">
-            <label for="check">
+            <!-- <label for="check">
                 <span class="fas fa-times" id="times"></span>
                 <span class="fas fa-bars" id="bars"></span>
-            </label>
+            </label> -->
             <div class="head">menu</div>
             <ol>
                 <li><a href="?page=jobseeker" <?php echo ($activePage === 'jobseeker') ? 'class="active"' : ''; ?>><i class="fas fa-users"></i>&nbsp;jobseeker</a></li>
@@ -53,22 +56,13 @@ if(!isset($_SESSION['username'])){
             break;
         }
         ?>
-            <!-- <div class="logo"> -->
-            <!-- <h2>Job Portal</h2>
-            </div>
-           
-        
-        
-        
-
-
-        <footer id="footer">
+        <!-- <footer id="footer">
         <div class="footer-bottom-content">
           <p>Designed By Job Portal teams</p>
           <div class="copyright">
               <p>&copy;Copyright <strong>Job portal</strong>.All Rights Reserved</p>
           </div>
         </div>
-        </footer> -->
+        </footer>  -->
 </body>
 </html>

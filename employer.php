@@ -31,7 +31,6 @@ try{
     <div class="section">
         <table>
             <tr>
-                <th>c_id</th>
                 <th>Company Name</th>
                 <th>Industry</th>
                 <th>Contact No</th>
@@ -40,14 +39,13 @@ try{
             </tr>
             <?php foreach ($employers as $key => $employer) { ?>
                 <tr>
-                    <td>1</td>
                     <td><?php echo $employer['c_name'] ?></td>
                     <td><?php echo $employer['industry'] ?></td>
                     <td><?php echo $employer['contact_no'] ?></td>
                     <td><?php echo $employer['c_location'] ?></td>
                     <td>
-                        <a onclick="return confirm('are you sure to update?')" href="employerupdate.php?c_id=<?php echo $employer['c_id'] ?>">Update</a>
-                        <a onclick="return confirm('are you sure to delete?')" href="delete.php?c_id=<?php echo $employer['c_id'] ?>">Delete</a>
+                        <a onclick="return confirm('are you sure to update?')" href="employerupdate.php?c_email=<?php echo $employer['c_email'] ?>">Update</a>
+                        <a onclick="return confirm('Are you sure to delete?')" href="delete.php?email=<?php echo $employer['c_email'] ?>">Delete</a>
                     </td>
                 </tr>
             <?php } ?>

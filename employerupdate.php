@@ -1,13 +1,13 @@
 <?php
-$cname = $industry = $contact_no = $location = $terms='';
+$c_name =$c_email= $industry = $contact_no = $location = $terms='';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['cname']) && !empty($_POST['cname']) && trim($_POST['cname'])) {
-        $cname = $_POST['cname'];
+    if (isset($_POST['c_name']) && !empty($_POST['c_name']) && trim($_POST['c_name'])) {
+        $cname = $_POST['c_name'];
         if (!preg_match('/^[a-zA-Z\s]{3,50}$/', $cname)) {
-            $errors['cname'] = 'Enter valid company name';
+            $errors['c_name'] = 'Enter valid company name';
         }
     } else {
-        $errors['cname'] = 'Enter company name';
+        $errors['c_name'] = 'Enter company name';
     }
 
     if (isset($_POST['industry']) && !empty($_POST['industry'])) {
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $terms =$_POST['terms'];
     try{
         require_once 'connection.php';
-        $sql = "Update * from employer where c_id =$c_id";
+        $sql = "Update * from company where c_email ='$c_email'";
         $connection->query($sql);
         echo "Employer updated successfully";
     }catch(Exception $ex){
@@ -50,10 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 <?php
-$c_id = $_GET['c_id'];
+$c_id = $_GET['c_email'];
     try{
         require_once 'connection.php';
-        $sql = "select * from employer where c_id =$c_id";
+        $sql = "select * from company where c_email ='$c_email'";
         $result = $connection->query($sql);
         if ($result->num_rows == 1) {
             $record = $result->fetch_assoc();

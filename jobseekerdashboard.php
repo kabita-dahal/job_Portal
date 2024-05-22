@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['email'])) {
-    die("Access denied.");
+    header('location:jobseekerlogin.php');
 }
 
 $jobseeker_email = $_SESSION['email'];
@@ -23,9 +23,16 @@ if ($result->num_rows > 0) {
     $jobseeker_name = $row['jobseeker_name'];
     $mobno = $row['mobno'];
     $address = $row['address'];
-    $cv = $row['cv'];
+    $cv_path = $row['cv'];
     $dob = $row['dob'];
     $description = $row['description'];
+    // Read the PDF file content from the path
+    if (file_exists($cv_path)) {
+        $cv_content = file_get_contents($cv_path);
+        $cv_base64 = base64_encode($cv_content);
+    } else {
+        $cv_base64 = null;
+    }
 } else {
     die("No jobseeker found with the given email.");
 }
@@ -117,6 +124,15 @@ $mysqli->close();
                     <h4><?php echo $jobseeker_name; ?></h4>
                     <p><?php echo $address; ?></p>
                     <p><?php echo $description; ?></p>
+                    <button class="button2" onclick="toggleDropdowncv()">View CV</button>
+                    <div class="for_cv" id="for_cv">
+                        <?php if (isset($cv_base64) && $cv_base64): ?>
+                            <p><strong>CV:</strong></p>
+                            <iframe src="data:application/pdf;base64,<?php echo $cv_base64; ?>" style="width:100%; height:500px;" frameborder="0"></iframe>
+                        <?php else: ?>
+                            <p>No CV uploaded.</p>
+                        <?php endif; ?>
+                    </div>
                     <ul>
                         <li><i class="fab fa-x"></i>
                         <i class="fab fa-linkedin"></i>
@@ -163,6 +179,20 @@ $mysqli->close();
             dropdownMenu.style.display = 'none';
         }
     });
+
+    const for_cv = document.getElementById('for_cv');
+    for_cv.style.display = 'none';
+
+    function toggleDropdowncv() {
+        for_cv.style.display = for_cv.style.display === 'block' ? 'none' : 'block';
+    }
+
+    document.addEventListener('click', function(event) {
+        const button = document.querySelector('.button2');
+        if (!button.contains(event.target) && !for_cv.contains(event.target)) {
+            for_cv.style.display = 'none';
+        }
+    });
     </script>
 
     <div class="job_box1"> 
@@ -183,7 +213,7 @@ $mysqli->close();
                                 <i class="fa-solid fa-location-dot"></i><span>' . $fetch_job['jobLocation'] . '</span>
                                 <i class="fa-solid fa-business-time"></i><span>' . $fetch_job['jobType'] . '</span>
                             </div>
-                            <a href="jobdetails.php?id=' . $fetch_job['id'] . '"><button class="button2">View Details</button></a>
+                            <a href="jobdetails.php?id=' . $fetch_job['job_id'] . '"><button class="button2">View Details</button></a>
                         </div>';
                     }
                 } else {
@@ -251,9 +281,9 @@ $mysqli->close();
         <div class="logo">
           <h2>Job Portal</h2>
           </div>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
+          <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et labore suscipit nisi non, laudantium delectus?
               <br>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, molestias!
-          </p>
+          </p> -->
           <div class="socail-links">
               <i class="fa-brands fa-twitter"></i>
               <i class="fa-brands fa-facebook-f"></i>

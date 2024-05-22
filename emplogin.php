@@ -63,7 +63,7 @@ $connection->close();
     </div>
     <section class="form-box">
         <form action="" method="post" name="login_form">
-            <h3>LOGIN</h3>
+            <h3> EMPLOYER'S LOGIN</h3>
            
             <div class="field-group">
                 <label for="email"><b>Email:</b></label>
